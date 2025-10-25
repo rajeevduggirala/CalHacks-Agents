@@ -1,0 +1,163 @@
+🧩 **Prompt for Cursor**
+
+🧠 **Goal:**  
+Create a Python project named `agentic-grocery` — a **multi-agent system** that integrates **Fetch.ai’s uAgents** with **FastAPI** for an agentic food recommendation and grocery automation platform.  
+The project must be **ASI:One-compatible** and **ready for Agentverse registration** to qualify for the Fetch.ai hackathon award.
+
+---
+
+### ⚙️ **Core Frameworks and Dependencies**
+- `fastapi`, `uvicorn`, `uagents`, `pydantic`, `httpx`, `openai`, `python-dotenv`, `requests`
+- Optional for demo: `jinja2`, `rich` (for better logging and optional UI)
+
+Create a `requirements.txt` containing these dependencies.
+
+---
+
+### 🧠 **Architecture Overview**
+```
+agentic-grocery/
+├── agents/
+│   ├── chat_agent/agent.py
+│   ├── recipe_agent/agent.py
+│   └── grocery_agent/agent.py
+├── data/user_profile.json
+├── main.py
+├── requirements.txt
+├── .env.example
+├── agent_config.json
+├── utils/logger.py
+└── README.md
+```
+
+---
+
+### 🤖 **Agents and Responsibilities**
+
+#### 1. ChatAgent (Conversational Coordinator)
+- Handles user input via FastAPI (`/chat` endpoint).  
+- Extracts intent, dietary context, and preferences (macros, height, weight, goal type).  
+- Prompts user for missing details like cook time or previous meals.  
+- Once ready, formats a structured JSON request and forwards it to `RecipeAgent`.  
+- Uses `uagents.Agent` and registers a `@agent.on_message` handler for ASI:One compatibility.  
+- Responds with user-facing messages and structured recipe suggestions.  
+
+#### 2. RecipeAgent (Recipe Generator)
+- Receives a structured request from ChatAgent.  
+- Calls OpenAI or ASI:One API to generate **2–3 meal options** with:
+  - title, short description, macros, cook time, and a mock image URL.  
+- Outputs structured JSON compatible with the **Chat Protocol v0.3.0**.  
+- Registers itself as a discoverable uAgent on Agentverse.
+
+#### 3. GroceryAgent (Grocery List Builder)
+- Takes the selected recipe JSON.  
+- Extracts ingredients and quantities.  
+- Creates a grocery list formatted for mock Instacart ordering.  
+- Supports optional connection to real Instacart API later.  
+- Returns structured JSON in the format:
+  ```json
+  {"store": "Instacart", "items": [{"name": "chicken breast", "qty": "1 lb"}]}
+  ```
+
+---
+
+### 🌐 **Backend Integration**
+- Build a **FastAPI** backend in `main.py` exposing:
+  - `POST /chat` → calls ChatAgent  
+  - `POST /recipe` → calls RecipeAgent  
+  - `POST /grocery` → calls GroceryAgent  
+- Include error handling and structured JSON responses.
+- Use `async def` routes with `await` when calling agents.
+- Include `/health` endpoint for uptime checks.
+
+---
+
+### 📦 **Fetch.ai uAgents Setup**
+Each agent should:
+```python
+from uagents import Agent, Context
+
+chat_agent = Agent(name="ChatAgent", seed="chat-seed")
+
+@chat_agent.on_message
+async def on_message(ctx: Context, msg):
+    # TODO: handle user query, extract preferences, send structured request to RecipeAgent
+    ...
+
+if __name__ == "__main__":
+    chat_agent.run()
+```
+- Store identity files automatically (these include the agent’s **public key** for Agentverse registration).  
+- Use **Chat Protocol v0.3.0** for ASI:One compatibility.  
+- Include JSON metadata in `agent_config.json` for each agent (name, tags, endpoint, description).
+
+Example config snippet:
+```json
+{
+  "agent_name": "ChatAgent",
+  "description": "Conversational entrypoint for Agentic Grocery",
+  "tags": ["nutrition", "recipes", "fetchai", "agentic-ai"],
+  "endpoint": "http://localhost:8000/chat"
+}
+```
+
+---
+
+### 🔍 **ASI:One and Agentverse Compliance**
+- Output structured JSON only (no plain text).  
+- Include `@chat_agent.on_message` and similar handlers to register with the **Chat Protocol**.  
+- Maintain compatibility with:
+  - `https://docs.asi1.ai/documentation/build-with-asi-one/structured-data`
+  - `https://innovationlab.fetch.ai/resources/docs/agent-creation/uagents-adapter-guide`
+- Use the provided sandbox for testing:
+  - ASI:One LLM: [https://asi1.ai/chat](https://asi1.ai/chat)  
+  - Agentverse: [https://agentverse.ai](https://agentverse.ai)
+
+---
+
+### 💾 **Data and Learning**
+- Add a mock `data/user_profile.json` with example:
+  ```json
+  {
+    "user": "raj",
+    "height_cm": 175,
+    "weight_kg": 70,
+    "goal": "cut",
+    "diet": "vegetarian",
+    "workout_frequency": "5/week",
+    "likes": ["spicy", "south indian"],
+    "dislikes": ["mushrooms"]
+  }
+  ```
+- Agents should read this file for context.
+- Store updated preferences in the same folder.
+
+---
+
+### 🧱 **README.md Requirements**
+Include:
+- Project overview (mention Fetch.ai, ASI:One, Agentverse).  
+- Setup instructions:
+  ```bash
+  pip install -r requirements.txt
+  uvicorn main:app --reload
+  ```
+- How to register each agent on Agentverse.  
+- Example request/response flows.  
+- Screenshot or link showing agents listed in Agentverse.
+
+---
+
+### 🏆 **Award Optimization**
+- Make each agent independently **discoverable** on Agentverse.  
+- Use proper tags (`recipes`, `grocery`, `nutrition`, `chatbot`).  
+- Provide working endpoints for ASI:One orchestration.  
+- Add a **ranking-optimized README** with links and short demo GIF.
+
+---
+
+**Deliverables:**  
+- Complete project scaffold with stubbed logic, comments, and placeholders.  
+- Functional FastAPI routes and uAgent handlers.  
+- Ready for local run and later registration on Agentverse.  
+- Minimal LLM logic stubs (TODO placeholders for OpenAI/ASI:One calls).

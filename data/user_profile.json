@@ -1,0 +1,31 @@
+{
+  "user": "raj",
+  "height_cm": 175,
+  "weight_kg": 70,
+  "goal": "cut",
+  "diet": "vegetarian",
+  "workout_frequency": "5/week",
+  "likes": ["spicy", "south indian"],
+  "dislikes": ["mushrooms"],
+  "allergies": [],
+  "target_macros": {
+    "protein_g": 140,
+    "carbs_g": 200,
+    "fat_g": 50,
+    "calories": 1800
+  },
+  "meal_history": [
+    {
+      "date": "2025-10-24",
+      "meal": "breakfast",
+      "recipe": "Masala Dosa with Sambar",
+      "macros": {
+        "protein_g": 12,
+        "carbs_g": 45,
+        "fat_g": 8,
+        "calories": 350
+      }
+    }
+  ]
+}
+
