@@ -134,13 +134,20 @@ def generate_recipe_image(recipe_title: str, description: str) -> str:
         encoded_prompt = urllib.parse.quote(prompt)
         
         # Pollinations.ai provides free AI-generated images
-        return f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=512&height=512&nologo=true"
+        image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=512&height=512&nologo=true"
+        
+        logger.info(f"🖼️  Generated image URL for '{recipe_title}': {image_url[:100]}...")
+        log_agent_message("RecipeAgent", f"Generated AI image for recipe: {recipe_title}")
+        
+        return image_url
         
     except Exception as e:
-        logger.debug(f"Image generation error: {e}")
+        logger.warning(f"Image generation error: {e}")
         # Fallback to simple placeholder
         safe_title = recipe_title.replace(' ', '+')
-        return f"https://via.placeholder.com/512x512/FF6B6B/FFFFFF?text={safe_title}"
+        fallback_url = f"https://via.placeholder.com/512x512/FF6B6B/FFFFFF?text={safe_title}"
+        logger.info(f"Using fallback image: {fallback_url}")
+        return fallback_url
 
 
 def format_instructions_markdown(steps: List[str]) -> str:
