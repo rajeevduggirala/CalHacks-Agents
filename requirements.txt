@@ -12,3 +12,9 @@ sqlalchemy==2.0.23
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
 
+# ChromaDB and ML dependencies
+chromadb==0.4.15
+sentence-transformers==2.2.2
+huggingface_hub==0.16.4
+numpy==1.24.3
+

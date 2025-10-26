@@ -15,10 +15,14 @@
 ### Key Features
 
 - 🤖 **Three Specialized Agents**: ChatAgent, RecipeAgent, and GroceryAgent
-- 🍽️ **Personalized Meal Planning**: Based on dietary goals, preferences, and macros
-- 🛒 **Automated Grocery Lists**: Ready for Instacart ordering
-- 🔄 **ASI:One Compatible**: Follows Chat Protocol v0.3.0
-- 📊 **Structured Data**: All responses in JSON format
+- 📡 **Chat Protocol v0.3.0**: Fully compliant with Fetch.ai standards
+- 🍽️ **AI-Powered Recipes**: Claude API generates 4-5 personalized recipes
+- 🛒 **Real Grocery Pricing**: Kroger API integration for live product data
+- 📊 **Structured Ingredients**: Quantity, unit, and preparation notes
+- 📝 **Markdown Instructions**: Beautifully formatted cooking steps
+- 🖼️ **AI Food Images**: Auto-generated recipe visuals
+- 🔐 **User Authentication**: JWT-based auth with SQLite database
+- 📱 **Mobile-Ready API**: Complete endpoints for app integration
 - 🎯 **Agentverse Ready**: Pre-configured for agent registration
 
 ## 🏗️ Architecture
@@ -48,16 +52,19 @@
 - Forwards structured requests to RecipeAgent
 
 #### 🍳 RecipeAgent
-- Generates 2-3 personalized meal options
+- Generates 4-5 personalized meal options using Claude API
+- **Structured ingredients**: Name, quantity (numeric), unit, preparation notes
+- **Markdown instructions**: Formatted with emojis and step-by-step guidance
+- **AI-generated images**: Food photos using Pollinations.ai
 - Calculates macros based on user goals (cut, bulk, maintain)
-- Includes ingredients, instructions, and cook time
-- Compatible with OpenAI/ASI:One LLM integration
+- Compatible with Chat Protocol v0.3.0
 
 #### 🛒 GroceryAgent
-- Extracts ingredients from selected recipes
-- Creates formatted grocery lists
-- Estimates costs and categorizes items
-- Generates mock Instacart order URLs
+- **Kroger API integration**: Real product search and pricing
+- Extracts structured ingredients from recipes
+- Returns product IDs, UPCs, and brand information
+- Shows Kroger vs estimated pricing transparency
+- Generates Kroger cart URLs for direct ordering
 
 ## 🚀 Quick Start
 
@@ -81,8 +88,13 @@ pip install -r requirements.txt
 
 3. **Set up environment variables**
 ```bash
-cp .env.example .env
-# Edit .env with your API keys
+cp env.example .env
+# Edit .env with your API keys:
+# - ANTHROPIC_API_KEY (for Claude API)
+# - KROGER_CLIENT_ID (for Kroger API)
+# - KROGER_CLIENT_SECRET (for Kroger API)
+# - JWT_SECRET_KEY (for authentication)
+# - Agent seeds and database URL
 ```
 
 4. **Run the FastAPI server**
@@ -99,62 +111,157 @@ uvicorn main:app --reload --port 8000
 
 ## 📡 API Endpoints
 
-### Health Check
+### 🔐 Authentication
+
+**Register User**
+```bash
+POST /auth/register
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "securepassword123"
+}
+```
+
+**Login**
+```bash
+POST /auth/login
+{
+  "username": "john_doe",
+  "password": "securepassword123"
+}
+# Returns: {"access_token": "eyJ...", "token_type": "bearer"}
+```
+
+### 👤 User Profile
+
+**Get Profile** (requires auth)
+```bash
+GET /profile
+Headers: Authorization: Bearer <token>
+```
+
+**Update Profile** (requires auth)
+```bash
+PUT /profile
+Headers: Authorization: Bearer <token>
+{
+  "height_cm": 175,
+  "weight_kg": 70,
+  "goal": "cut",
+  "diet": "vegetarian"
+}
+```
+
+### 🤖 Agent Endpoints
+
+**Chat with ChatAgent** (requires auth)
+```bash
+POST /chat
+Headers: Authorization: Bearer <token>
+{
+  "message": "I want a high protein vegetarian dinner, 30 min cook time"
+}
+```
+
+**Generate Recipes** (requires auth)
+```bash
+POST /recipe
+Headers: Authorization: Bearer <token>
+{
+  "preferences": {
+    "meal_type": "dinner",
+    "cook_time": "30 mins",
+    "cuisine": "indian"
+  }
+}
+# Returns 4-5 recipes with structured ingredients, markdown instructions, AI images
+```
+
+**Create Grocery List** (requires auth)
+```bash
+POST /grocery
+Headers: Authorization: Bearer <token>
+{
+  "recipe": {
+    "title": "Paneer Tikka Bowl",
+    "ingredients": [
+      {"name": "paneer", "quantity": 200, "unit": "g", "notes": "cubed"}
+    ]
+  },
+  "store_preference": "Kroger"
+}
+# Returns list with real Kroger prices, product IDs, UPCs
+```
+
+### 📝 Recipe Management
+
+**Get Saved Recipes** (requires auth)
+```bash
+GET /recipes
+```
+
+**Save Recipe** (requires auth)
+```bash
+POST /recipes/save
+{
+  "recipe_data": {...}
+}
+```
+
+**Favorite Recipe** (requires auth)
+```bash
+POST /recipes/{recipe_id}/favorite
+```
+
+### 🛒 Grocery Lists
+
+**Get All Lists** (requires auth)
+```bash
+GET /grocery-lists
+```
+
+**Complete List** (requires auth)
+```bash
+POST /grocery-lists/{list_id}/complete
+```
+
+### 📊 Meal & Stats
+
+**Log Meal** (requires auth)
+```bash
+POST /meals/log
+{
+  "recipe_id": 1,
+  "meal_type": "dinner"
+}
+```
+
+**Get Meal History** (requires auth)
+```bash
+GET /meals/history
+```
+
+**Get User Stats** (requires auth)
+```bash
+GET /stats
+# Returns: recipes saved, grocery lists, meals logged, favorites
+```
+
+### 🔍 System Info
+
+**Health Check**
 ```bash
 GET /health
 ```
 
-### Chat with ChatAgent
+**Agents Metadata**
 ```bash
-POST /chat
-{
-  "message": "I want a high protein vegetarian dinner for tonight",
-  "user_id": "raj"
-}
+GET /agents-metadata
+# Returns Chat Protocol v0.3.0 info for all agents
 ```
 
-### Generate Recipes
-```bash
-POST /recipe
-{
-  "user_profile": {
-    "height_cm": 175,
-    "weight_kg": 70,
-    "goal": "cut",
-    "diet": "vegetarian"
-  },
-  "preferences": {
-    "meal_type": "dinner",
-    "cook_time": "30-45 mins",
-    "cuisine": "indian"
-  }
-}
-```
-
-### Create Grocery List
-```bash
-POST /grocery
-{
-  "recipe": {
-    "title": "Paneer Tikka with Quinoa",
-    "ingredients": [
-      {"name": "paneer", "quantity": "200g"},
-      {"name": "quinoa", "quantity": "1/2 cup"}
-    ]
-  },
-  "user_id": "raj",
-  "store_preference": "Instacart"
-}
-```
-
-### Full Workflow
-```bash
-POST /full-flow
-{
-  "message": "I need a quick lunch with high protein",
-  "user_id": "raj"
-}
-```
+📚 **Interactive API Docs**: http://localhost:8000/docs
 
 ## 🤝 Example Flow
 
@@ -197,30 +304,55 @@ async def handle_message(ctx: Context, sender: str, msg: ChatRequest):
     await ctx.send(sender, response)
 ```
 
-### ASI:One Compatibility
+### Chat Protocol v0.3.0 Implementation
 
-- ✅ Follows **Chat Protocol v0.3.0**
-- ✅ Structured JSON responses only
-- ✅ `@agent.on_message` handlers
-- ✅ Compatible with [ASI:One documentation](https://docs.asi1.ai/documentation/build-with-asi-one/structured-data)
+All agents are fully compliant with Fetch.ai's Chat Protocol v0.3.0:
+
+- ✅ `Protocol("chat", version="0.3.0")` registered
+- ✅ `@protocol.on_message` handlers for agent-to-agent communication
+- ✅ `agent.include(protocol)` for Agentverse discovery
+- ✅ Structured JSON responses with Pydantic models
+- ✅ Protocol logging with `[Chat Protocol v0.3.0]` prefix
+- ✅ Dual handlers: FastAPI + Protocol for maximum compatibility
+- ✅ Compatible with [ASI:One documentation](https://docs.asi1.ai)
+
+**Verify Protocol Compliance:**
+```bash
+python test_protocol.py
+```
+
+All agents will show ✅ COMPLIANT status.
 
 ### Agentverse Registration
 
-1. **Get Agent Configuration**
+1. **Get Agent Addresses**
 ```bash
-GET http://localhost:8000/agent-config
+# Run each agent to get its address
+python agents/chat_agent/agent.py
+python agents/recipe_agent/agent.py
+python agents/grocery_agent/agent.py
+
+# Each will output: "Agent address: agent1qw..."
 ```
 
 2. **Register on Agentverse**
    - Visit [agentverse.ai](https://agentverse.ai)
-   - Create new agent
-   - Use configuration from `/agent-config` endpoint
-   - Add tags: `recipes`, `nutrition`, `grocery`, `chatbot`
+   - Create new agent for each
+   - Enter agent address
+   - Specify protocol: `chat v0.3.0`
+   - Add metadata (Name, Description, Tags from agent docstrings)
 
-3. **Agent Endpoints**
-   - ChatAgent: `http://localhost:8000/chat`
-   - RecipeAgent: `http://localhost:8000/recipe`
-   - GroceryAgent: `http://localhost:8000/grocery`
+3. **Agent Metadata** (embedded in code)
+   - **ChatAgent**: Conversational entrypoint, tags: nutrition, recipes, chatbot
+   - **RecipeAgent**: AI recipe generator, tags: meal-planning, claude, fetchai
+   - **GroceryAgent**: Kroger API integration, tags: grocery, shopping, automation
+
+4. **API Endpoints** (for FastAPI integration)
+   - ChatAgent: `POST http://localhost:8000/chat`
+   - RecipeAgent: `POST http://localhost:8000/recipe`
+   - GroceryAgent: `POST http://localhost:8000/grocery`
+
+📚 **See `AGENTVERSE_GUIDE.md` for detailed registration steps**
 
 ## 📊 User Profile
 
@@ -248,11 +380,15 @@ Users can be personalized with dietary profiles stored in `data/user_profile.jso
 ## 🛠️ Technology Stack
 
 - **Backend**: FastAPI, Uvicorn
-- **Agents**: Fetch.ai uAgents
-- **Validation**: Pydantic
+- **Agents**: Fetch.ai uAgents (Chat Protocol v0.3.0)
+- **AI/LLM**: Anthropic Claude API for recipe generation
+- **Grocery API**: Kroger API for real product pricing
+- **Image Generation**: Pollinations.ai (free AI image service)
+- **Database**: SQLite with SQLAlchemy ORM
+- **Authentication**: JWT tokens with bcrypt password hashing
+- **Validation**: Pydantic v2.8+
 - **HTTP Client**: httpx, requests
-- **LLM**: OpenAI (optional), ASI:One compatible
-- **Logging**: Rich console
+- **Logging**: Custom logger with rich console
 - **Environment**: python-dotenv
 
 ## 📝 Development
@@ -263,19 +399,25 @@ Users can be personalized with dietary profiles stored in `data/user_profile.jso
 agentic-grocery/
 ├── agents/
 │   ├── chat_agent/
-│   │   └── agent.py          # Conversational coordinator
+│   │   └── agent.py          # Chat Protocol v0.3.0 conversational agent
 │   ├── recipe_agent/
-│   │   └── agent.py          # Recipe generator
+│   │   └── agent.py          # Claude API recipe generator (4-5 recipes)
 │   └── grocery_agent/
-│       └── agent.py          # Grocery list builder
+│       └── agent.py          # Kroger API grocery list builder
 ├── data/
-│   └── user_profile.json     # User dietary profiles
+│   └── user_profile.json     # User dietary profiles (mock data)
 ├── utils/
 │   └── logger.py             # Rich logging utility
-├── main.py                   # FastAPI application
-├── requirements.txt          # Python dependencies
-├── agent_config.json         # Agentverse configuration
-├── .env.example              # Environment template
+├── main.py                   # FastAPI app (auth, agents, mobile endpoints)
+├── database.py               # SQLite models (User, Profile, Recipes, Lists)
+├── auth.py                   # JWT authentication & password hashing
+├── requirements.txt          # Python dependencies (uagents 0.20.1, pydantic 2.8+)
+├── env.example               # Environment template (Claude, Kroger, JWT keys)
+├── test_api.py               # API endpoint tests
+├── test_protocol.py          # Chat Protocol compliance validator
+├── AGENTVERSE_GUIDE.md       # Step-by-step Agentverse registration
+├── CHAT_PROTOCOL_IMPLEMENTATION.md  # Protocol implementation details
+├── FLOW_SUMMARY.md           # System architecture and data flow
 └── README.md                 # This file
 ```
 
@@ -294,26 +436,22 @@ python agents/recipe_agent/agent.py
 python agents/grocery_agent/agent.py
 ```
 
-### Adding LLM Integration
+### API Keys and Configuration
 
-Currently uses mock data. To add OpenAI integration:
-
-1. Add API key to `.env`:
+#### Claude API (Recipe Generation)
 ```bash
-OPENAI_API_KEY=sk-your-key-here
+# Get API key from: https://console.anthropic.com
+ANTHROPIC_API_KEY=your_key_here
 ```
 
-2. Uncomment LLM code in `agents/recipe_agent/agent.py`:
-```python
-from openai import OpenAI
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[...],
-    response_format={"type": "json_object"}
-)
+#### Kroger API (Grocery Pricing)
+```bash
+# Register at: https://developer.kroger.com
+KROGER_CLIENT_ID=your_client_id
+KROGER_CLIENT_SECRET=your_client_secret
 ```
+
+The system will automatically use these APIs when configured. Without API keys, it falls back to mock data for testing.
 
 ## 🏆 Hackathon Highlights
 
@@ -335,16 +473,29 @@ response = client.chat.completions.create(
 4. **Real-World Integration**: Mock Instacart ordering
 5. **Scalable**: Ready for production APIs
 
+## ✅ Recent Enhancements
+
+- ✅ **Chat Protocol v0.3.0**: Full compliance for ASI:One
+- ✅ **Claude API**: AI-powered recipe generation
+- ✅ **Kroger API**: Real product pricing and details
+- ✅ **Structured Ingredients**: Quantity, unit, preparation notes
+- ✅ **Markdown Instructions**: Beautiful formatting with emojis
+- ✅ **AI-Generated Images**: Recipe visuals from Pollinations.ai
+- ✅ **User Authentication**: JWT with bcrypt
+- ✅ **SQLite Database**: User profiles, recipes, grocery lists
+- ✅ **Mobile API**: Complete endpoints for app integration
+- ✅ **Meal Logging**: Track nutrition and history
+
 ## 🔮 Future Enhancements
 
-- [ ] Real Instacart API integration
-- [ ] User authentication and multi-user support
-- [ ] Meal history and learning from preferences
-- [ ] Nutrition tracking dashboard
+- [ ] Additional grocery APIs (Instacart, Walmart, Amazon Fresh)
+- [ ] Nutrition tracking dashboard with charts
 - [ ] Recipe rating and feedback system
 - [ ] Multi-language support
-- [ ] Mobile app integration
 - [ ] Voice interface support
+- [ ] Social features (share recipes, meal plans)
+- [ ] Meal prep scheduling and reminders
+- [ ] Ingredient substitution suggestions
 
 ## 📚 Resources
 

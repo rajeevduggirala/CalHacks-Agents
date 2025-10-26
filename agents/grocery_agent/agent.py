@@ -16,8 +16,8 @@ Agent Metadata:
 
 import os
 import json
-from typing import Dict, Any, List, Optional
-from uagents import Agent, Context, Model
+from typing import Dict, Any, List, Optional, Tuple
+from uagents import Agent, Context, Model, Protocol
 from pydantic import BaseModel, Field
 import sys
 import requests
@@ -37,22 +37,29 @@ class GroceryRequest(BaseModel):
 
 
 class GroceryItem(BaseModel):
-    """Individual grocery item"""
+    """Individual grocery item with Kroger details"""
     name: str = Field(..., description="Item name")
     quantity: str = Field(..., description="Quantity needed")
     category: Optional[str] = Field(default=None, description="Item category")
-    estimated_price: Optional[float] = Field(default=None, description="Estimated price in USD")
+    estimated_price: Optional[float] = Field(default=None, description="Price in USD (real or estimated)")
+    product_id: Optional[str] = Field(default=None, description="Kroger product ID")
+    upc: Optional[str] = Field(default=None, description="Universal Product Code")
+    brand: Optional[str] = Field(default=None, description="Product brand")
 
 
 class GroceryResponse(BaseModel):
-    """Grocery list response"""
+    """Grocery list response with Kroger data"""
     agent: str = Field(default="GroceryAgent", description="Agent name")
     store: str = Field(..., description="Store name")
-    items: List[GroceryItem] = Field(..., description="List of grocery items")
-    total_estimated_cost: float = Field(..., description="Total estimated cost")
+    items: List[GroceryItem] = Field(..., description="List of grocery items with Kroger details")
+    total_estimated_cost: float = Field(..., description="Total cost (real or estimated)")
+    kroger_items_found: int = Field(default=0, description="Number of items found on Kroger")
+    total_items: int = Field(..., description="Total number of items")
     message: str = Field(..., description="Response message")
-    order_url: Optional[str] = Field(default=None, description="Mock order URL")
+    order_url: Optional[str] = Field(default=None, description="Kroger order URL")
     next_action: Optional[str] = Field(default="review_order", description="Next action")
+    tools_called: Optional[List[str]] = Field(default=None, description="List of tools/functions called")
+    llm_provider: Optional[str] = Field(default="kroger_api", description="Data source used")
 
 
 # Initialize GroceryAgent
@@ -65,6 +72,9 @@ grocery_agent = Agent(
 )
 
 logger = setup_logger("GroceryAgent")
+
+# Define the Chat Protocol v0.3.0 for ASI:One compatibility
+grocery_protocol = Protocol("chat", version="0.3.0")
 
 # Kroger API configuration
 KROGER_CLIENT_ID = os.getenv("KROGER_CLIENT_ID")
@@ -259,77 +269,168 @@ def search_kroger_product(ingredient_name: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-def estimate_price(ingredient_name: str, quantity: str) -> float:
+def search_and_price_ingredient(ingredient_name: str, quantity: float, unit: str) -> Dict[str, Any]:
     """
-    Estimate price for an ingredient.
-    First tries Kroger API, then falls back to mock prices.
+    Search Kroger API for ingredient and get real pricing and product details.
+    Returns dict with: name, quantity, unit, price, product_id, upc, brand, category
+    
+    Falls back to estimated price only if Kroger API fails.
     """
-    # Try Kroger API first
+    # Try Kroger API FIRST (this is the primary method)
     kroger_product = search_kroger_product(ingredient_name)
+    
     if kroger_product and kroger_product.get("price"):
-        log_agent_message("GroceryAgent", f"📦 Found '{ingredient_name}' on Kroger: ${kroger_product['price']}")
-        return float(kroger_product["price"])
+        # Successfully found on Kroger!
+        price = float(kroger_product["price"])
+        log_agent_message("GroceryAgent", f"✅ Found '{ingredient_name}' on Kroger: ${price} (Product ID: {kroger_product.get('product_id', 'N/A')})")
+        
+        return {
+            "name": kroger_product.get("name", ingredient_name),
+            "quantity": quantity,
+            "unit": unit,
+            "price": price,
+            "product_id": kroger_product.get("product_id"),
+            "upc": kroger_product.get("upc"),
+            "brand": kroger_product.get("brand"),
+            "category": categorize_ingredient(ingredient_name),
+            "source": "kroger_api"
+        }
     
-    # Fallback to mock prices
+    # Fallback ONLY if Kroger API failed
+    logger.warning(f"Kroger API failed for '{ingredient_name}', using fallback price estimate")
+    
     ingredient_lower = ingredient_name.lower()
+    estimated_price = 3.99  # Default
     
-    # Try exact match
+    # Try to find a reasonable estimate
     if ingredient_lower in INGREDIENT_PRICES:
-        return INGREDIENT_PRICES[ingredient_lower]
+        estimated_price = INGREDIENT_PRICES[ingredient_lower]
+    else:
+        # Try partial match
+        for key, price in INGREDIENT_PRICES.items():
+            if key in ingredient_lower:
+                estimated_price = price
+                break
     
-    # Try partial match
-    for key, price in INGREDIENT_PRICES.items():
-        if key in ingredient_lower:
-            return price
-    
-    # Default estimate
-    return 3.99
+    return {
+        "name": ingredient_name,
+        "quantity": quantity,
+        "unit": unit,
+        "price": estimated_price,
+        "product_id": None,
+        "upc": None,
+        "brand": "Generic",
+        "category": categorize_ingredient(ingredient_name),
+        "source": "estimated"
+    }
 
 
-def create_grocery_list(recipe: Dict[str, Any], store: str = "Kroger") -> Dict[str, Any]:
+def create_grocery_list(recipe: Dict[str, Any], store: str = "Kroger") -> Tuple[Dict[str, Any], List[str]]:
     """
-    Create a grocery list from recipe ingredients.
+    Create a grocery list from recipe ingredients using Kroger API.
+    
+    Searches Kroger for each ingredient to get real prices, product IDs, and details.
+    Falls back to estimates only if Kroger API is unavailable.
+    Returns (grocery_list_dict, tools_called_list)
+    
+    TOOL: create_grocery_list - Main grocery list creation function
     
     Args:
-        recipe: Recipe dictionary with ingredients
-        store: Preferred store name
+        recipe: Recipe dictionary with structured ingredients
+        store: Preferred store name (default: Kroger)
     
     Returns:
-        Grocery list with items and estimated costs
+        Tuple of (grocery list dict, list of tools called)
     """
+    tools_called = ["create_grocery_list"]
     ingredients = recipe.get("ingredients", [])
     
     grocery_items = []
     total_cost = 0.0
+    kroger_items_found = 0
+    
+    log_agent_message("GroceryAgent", f"🔍 Searching Kroger for {len(ingredients)} ingredients...")
     
     for ingredient in ingredients:
-        item_name = ingredient.get("name", "Unknown")
-        quantity = ingredient.get("quantity", "1")
+        # Handle both old dict format and new Ingredient object format
+        if isinstance(ingredient, dict):
+            # Check if it's the new structured format
+            if "quantity" in ingredient and "unit" in ingredient:
+                item_name = ingredient.get("name", "Unknown")
+                quantity = ingredient.get("quantity", 1.0)
+                unit = ingredient.get("unit", "")
+                notes = ingredient.get("notes", "")
+            else:
+                # Old format with quantity as string
+                item_name = ingredient.get("name", "Unknown")
+                quantity_str = ingredient.get("quantity", "1")
+                # Try to parse quantity and unit from string like "200g" or "1 cup"
+                import re
+                match = re.match(r"([\d.]+)\s*([a-zA-Z]*)", str(quantity_str))
+                if match:
+                    quantity = float(match.group(1))
+                    unit = match.group(2) or "unit"
+                else:
+                    quantity = 1.0
+                    unit = "unit"
+                notes = ""
+        else:
+            # It's an Ingredient object (Pydantic model)
+            item_name = getattr(ingredient, 'name', 'Unknown')
+            quantity = getattr(ingredient, 'quantity', 1.0)
+            unit = getattr(ingredient, 'unit', 'unit')
+            notes = getattr(ingredient, 'notes', '') or ''
         
-        category = categorize_ingredient(item_name)
-        price = estimate_price(item_name, quantity)
+        # Search Kroger API and get pricing details
+        item_details = search_and_price_ingredient(item_name, quantity, unit)
+        tools_called.append("search_and_price_ingredient")
+        
+        if item_details.get("source") == "kroger_api":
+            kroger_items_found += 1
+            tools_called.append("kroger_api_success")
+        
+        # Format quantity display
+        quantity_display = f"{quantity} {unit}".strip()
+        if notes:
+            quantity_display += f" ({notes})"
         
         grocery_item = GroceryItem(
-            name=item_name,
-            quantity=quantity,
-            category=category,
-            estimated_price=price
+            name=item_details["name"],
+            quantity=quantity_display,
+            category=item_details["category"],
+            estimated_price=item_details["price"]
         )
         
+        # Add extra metadata if from Kroger
+        if item_details.get("product_id"):
+            grocery_item.product_id = item_details["product_id"]
+            grocery_item.upc = item_details["upc"]
+            grocery_item.brand = item_details["brand"]
+        
         grocery_items.append(grocery_item)
-        total_cost += price
+        total_cost += item_details["price"]
+    
+    # Log results
+    if kroger_items_found > 0:
+        log_agent_message("GroceryAgent", f"✅ Found {kroger_items_found}/{len(ingredients)} items on Kroger with real prices!")
+    else:
+        log_agent_message("GroceryAgent", f"⚠️ Kroger API unavailable, using estimated prices")
+        tools_called.append("fallback_pricing")
     
     return {
         "store": store,
         "items": grocery_items,
-        "total_estimated_cost": round(total_cost, 2)
-    }
+        "total_estimated_cost": round(total_cost, 2),
+        "kroger_items_found": kroger_items_found,
+        "total_items": len(ingredients)
+    }, tools_called
 
 
 @grocery_agent.on_event("startup")
 async def startup(ctx: Context):
     """Agent startup handler"""
     log_agent_message("GroceryAgent", "🚀 GroceryAgent started and ready!")
+    log_agent_message("GroceryAgent", "📡 Chat Protocol v0.3.0 enabled for ASI:One")
     logger.info(f"Agent address: {ctx.agent.address}")
 
 
@@ -338,12 +439,16 @@ async def handle_grocery_request(ctx: Context, sender: str, msg: GroceryRequest)
     """
     Main message handler for GroceryAgent.
     Compatible with ASI:One Chat Protocol v0.3.0
+    Uses Kroger API for real grocery pricing.
     """
     log_agent_message("GroceryAgent", "📨 Received grocery list request")
     
+    tools_called = ["handle_grocery_request"]
+    
     try:
         # Create grocery list
-        grocery_data = create_grocery_list(msg.recipe, msg.store_preference)
+        grocery_data, list_tools = create_grocery_list(msg.recipe, msg.store_preference)
+        tools_called.extend(list_tools)
         
         # Generate Kroger or store-specific order URL
         recipe_title = msg.recipe.get("title", "recipe").replace(" ", "-").lower()
@@ -352,39 +457,136 @@ async def handle_grocery_request(ctx: Context, sender: str, msg: GroceryRequest)
         else:
             order_url = f"https://instacart.com/order/{msg.user_id}/{recipe_title}"
         
+        kroger_count = grocery_data.get("kroger_items_found", 0)
+        total_items = grocery_data.get("total_items", len(grocery_data["items"]))
+        
+        if kroger_count > 0:
+            price_source = f"{kroger_count}/{total_items} prices from Kroger API"
+        else:
+            price_source = "estimated prices (Kroger API unavailable)"
+        
         response = GroceryResponse(
             store=grocery_data["store"],
             items=grocery_data["items"],
             total_estimated_cost=grocery_data["total_estimated_cost"],
-            message=f"Created grocery list with {len(grocery_data['items'])} items. Total: ${grocery_data['total_estimated_cost']}",
+            kroger_items_found=kroger_count,
+            total_items=total_items,
+            message=f"Created grocery list with {len(grocery_data['items'])} items ({price_source}). Total: ${grocery_data['total_estimated_cost']}",
             order_url=order_url,
-            next_action="review_order"
+            next_action="review_order",
+            tools_called=tools_called,
+            llm_provider="kroger_api" if kroger_count > 0 else "estimated"
         )
         
         log_agent_message("GroceryAgent", f"✅ Created list with {len(grocery_data['items'])} items")
+        log_agent_message("GroceryAgent", f"🔧 Tools called: {', '.join(tools_called)}")
         
         # Send response back
         await ctx.send(sender, response)
         
     except Exception as e:
         logger.error(f"Error creating grocery list: {e}")
+        tools_called.append("error_handler")
         error_response = GroceryResponse(
-            store="Instacart",
+            store="Kroger",
             items=[],
             total_estimated_cost=0.0,
+            kroger_items_found=0,
+            total_items=0,
             message=f"Sorry, I encountered an error: {str(e)}",
-            next_action="retry"
+            next_action="retry",
+            tools_called=tools_called,
+            llm_provider="error"
         )
         await ctx.send(sender, error_response)
+
+
+@grocery_protocol.on_message(model=GroceryRequest)
+async def handle_grocery_protocol_message(ctx: Context, sender: str, msg: GroceryRequest):
+    """
+    Chat Protocol v0.3.0 handler for ASI:One compatibility.
+    Creates grocery lists based on selected recipes from other agents.
+    This is the official protocol handler for Agentverse discovery.
+    Uses Kroger API for real grocery pricing.
+    """
+    ctx.logger.info(f"[Chat Protocol v0.3.0] Received grocery request from {sender}")
+    log_agent_message("GroceryAgent", f"[Protocol] Creating grocery list for {sender}")
+    
+    tools_called = ["handle_grocery_protocol_message"]
+    
+    try:
+        # Create grocery list using Kroger API
+        grocery_data, list_tools = create_grocery_list(msg.recipe, msg.store_preference)
+        tools_called.extend(list_tools)
+        
+        # Generate store-specific order URL
+        recipe_title = msg.recipe.get("title", "recipe").replace(" ", "-").lower()
+        if msg.store_preference.lower() == "kroger":
+            order_url = f"https://www.kroger.com/cart?recipe={recipe_title}"
+        else:
+            order_url = f"https://instacart.com/order/{msg.user_id}/{recipe_title}"
+        
+        kroger_count = grocery_data.get("kroger_items_found", 0)
+        total_items = grocery_data.get("total_items", len(grocery_data["items"]))
+        
+        if kroger_count > 0:
+            price_source = f"{kroger_count}/{total_items} prices from Kroger API"
+        else:
+            price_source = "estimated prices (Kroger API unavailable)"
+        
+        response = GroceryResponse(
+            store=grocery_data["store"],
+            items=grocery_data["items"],
+            total_estimated_cost=grocery_data["total_estimated_cost"],
+            kroger_items_found=kroger_count,
+            total_items=total_items,
+            message=f"Created grocery list with {len(grocery_data['items'])} items ({price_source}). Total: ${grocery_data['total_estimated_cost']}",
+            order_url=order_url,
+            next_action="review_order",
+            tools_called=tools_called,
+            llm_provider="kroger_api" if kroger_count > 0 else "estimated"
+        )
+        
+        ctx.logger.info(f"[Chat Protocol v0.3.0] Created list with {len(grocery_data['items'])} items, sending to {sender}")
+        ctx.logger.info(f"[Chat Protocol v0.3.0] Tools called: {', '.join(tools_called)}")
+        log_agent_message("GroceryAgent", f"✅ [Protocol] Sent grocery list to {sender}")
+        
+        # Send response back
+        await ctx.send(sender, response)
+        
+    except Exception as e:
+        ctx.logger.error(f"[Chat Protocol v0.3.0] Error creating grocery list: {e}")
+        logger.error(f"Error creating grocery list: {e}")
+        tools_called.append("error_handler")
+        error_response = GroceryResponse(
+            store="Kroger",
+            items=[],
+            total_estimated_cost=0.0,
+            kroger_items_found=0,
+            total_items=0,
+            message=f"Sorry, I encountered an error: {str(e)}",
+            next_action="retry",
+            tools_called=tools_called,
+            llm_provider="error"
+        )
+        await ctx.send(sender, error_response)
+
+
+# Include the Chat Protocol v0.3.0 for ASI:One and Agentverse
+grocery_agent.include(grocery_protocol)
 
 
 def generate_grocery_list(grocery_request: Dict[str, Any]) -> Dict[str, Any]:
     """
     Synchronous wrapper for grocery list generation.
     Used by FastAPI endpoints.
+    Uses Kroger API with tool tracking.
     """
+    tools_called = ["generate_grocery_list"]
+    
     request = GroceryRequest(**grocery_request)
-    grocery_data = create_grocery_list(request.recipe, request.store_preference)
+    grocery_data, list_tools = create_grocery_list(request.recipe, request.store_preference)
+    tools_called.extend(list_tools)
     
     # Generate store-specific order URL
     recipe_title = request.recipe.get("title", "recipe").replace(" ", "-").lower()
@@ -393,14 +595,26 @@ def generate_grocery_list(grocery_request: Dict[str, Any]) -> Dict[str, Any]:
     else:
         order_url = f"https://instacart.com/order/{request.user_id}/{recipe_title}"
     
+    kroger_count = grocery_data.get("kroger_items_found", 0)
+    total_items = grocery_data.get("total_items", len(grocery_data["items"]))
+    
+    if kroger_count > 0:
+        price_source = f"{kroger_count}/{total_items} prices from Kroger API"
+    else:
+        price_source = "estimated prices (Kroger API unavailable)"
+    
     return {
         "agent": "GroceryAgent",
         "store": grocery_data["store"],
         "items": [item.model_dump() for item in grocery_data["items"]],
         "total_estimated_cost": grocery_data["total_estimated_cost"],
-        "message": f"Created grocery list with {len(grocery_data['items'])} items. Total: ${grocery_data['total_estimated_cost']}",
+        "kroger_items_found": kroger_count,
+        "total_items": total_items,
+        "message": f"Created grocery list with {len(grocery_data['items'])} items ({price_source}). Total: ${grocery_data['total_estimated_cost']}",
         "order_url": order_url,
-        "next_action": "review_order"
+        "next_action": "review_order",
+        "tools_called": tools_called,
+        "llm_provider": "kroger_api" if kroger_count > 0 else "estimated"
     }
 
 
