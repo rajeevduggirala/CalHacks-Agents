@@ -23,6 +23,10 @@ import sys
 import requests
 import base64
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from utils.logger import setup_logger, log_agent_message
@@ -80,6 +84,7 @@ grocery_protocol = Protocol("chat", version="0.3.0")
 KROGER_CLIENT_ID = os.getenv("KROGER_CLIENT_ID")
 KROGER_CLIENT_SECRET = os.getenv("KROGER_CLIENT_SECRET")
 KROGER_API_BASE = os.getenv("KROGER_API_BASE", "https://api.kroger.com/v1")
+KROGER_LOCATION_ID = os.getenv("KROGER_LOCATION_ID", "01400441")  # Default location ID
 _kroger_token = None
 _token_expiry = None
 
@@ -189,7 +194,7 @@ def get_kroger_token() -> Optional[str]:
         }
         
         response = requests.post(
-            f"{KROGER_API_BASE.replace('/v1', '')}/connect/oauth2/token",
+            f"{KROGER_API_BASE}/connect/oauth2/token",
             headers=headers,
             data=data,
             timeout=10
@@ -214,114 +219,279 @@ def get_kroger_token() -> Optional[str]:
 
 def search_kroger_product(ingredient_name: str) -> Optional[Dict[str, Any]]:
     """
-    Search for a product in Kroger's catalog.
-    Returns product data with price if found.
+    Search for a product in Kroger's catalog using multiple search strategies.
+    Based on Kroger API Products documentation: https://developer.kroger.com/documentation/api-products/public/products/overview
+    
+    Search strategies:
+    1. Exact term search
+    2. Category-based search
+    3. Brand + generic search
+    4. Alternative name search
     """
     token = get_kroger_token()
     if not token:
+        logger.warning(f"❌ No Kroger token available for '{ingredient_name}'")
         return None
     
-    try:
-        headers = {
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/json"
-        }
-        
-        # Search for product
-        params = {
-            "filter.term": ingredient_name,
-            "filter.limit": 1
-        }
-        
-        response = requests.get(
-            f"{KROGER_API_BASE}/products",
-            headers=headers,
-            params=params,
-            timeout=10
-        )
-        
-        if response.status_code == 200:
-            data = response.json()
-            products = data.get("data", [])
+    logger.info(f"🔐 Token available: {token[:30]}...")
+    
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-cache"
+    }
+    
+    # Define search strategies based on ingredient type
+    search_strategies = _get_search_strategies(ingredient_name)
+    
+    for strategy_name, params in search_strategies:
+        try:
+            logger.info(f"🔍 Trying {strategy_name} for '{ingredient_name}'")
             
-            if products:
-                product = products[0]
-                # Extract price from items
-                items = product.get("items", [])
-                price = None
+            # Properly encode the URL - requests.get will do this automatically but let's be explicit
+            response = requests.get(
+                f"{KROGER_API_BASE}/products",
+                headers=headers,
+                params=params,
+                timeout=10
+            )
+            
+            logger.info(f"   Status: {response.status_code}")
+            logger.info(f"   URL: {response.url}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                products = data.get("data", [])
                 
-                if items and items[0].get("price"):
-                    price_data = items[0]["price"]
-                    price = price_data.get("regular", price_data.get("promo"))
+                logger.info(f"   Found {len(products)} products")
                 
-                return {
-                    "name": product.get("description", ingredient_name),
-                    "price": price,
-                    "product_id": product.get("productId"),
-                    "upc": product.get("upc"),
-                    "brand": product.get("brand")
-                }
+                if products:
+                    # Find the best match
+                    best_product = _find_best_product_match(products, ingredient_name)
+                    if best_product:
+                        logger.info(f"   ✅ Best match: {best_product.get('description', 'Unknown')}")
+                        return _extract_product_data(best_product, ingredient_name)
+                else:
+                    logger.info(f"   ⚠️ No products returned")
+            else:
+                logger.warning(f"   ❌ API error: {response.status_code} - {response.text[:100]}")
+            
+        except Exception as e:
+            logger.warning(f"❌ Kroger search error for '{ingredient_name}' with {strategy_name}: {e}")
+            continue
+    
+    logger.warning(f"❌ No results found for '{ingredient_name}' after trying {len(search_strategies)} strategies")
+    return None
+
+
+def _get_search_strategies(ingredient_name: str) -> List[Tuple[str, Dict[str, Any]]]:
+    """
+    Generate multiple search strategies for an ingredient.
+    Returns list of (strategy_name, params) tuples.
+    """
+    strategies = []
+    ingredient_lower = ingredient_name.lower()
+    
+    # Strategy 1: Exact term search with location
+    strategies.append((
+        "exact_term",
+        {
+            "filter.term": ingredient_name,
+            "filter.locationId": KROGER_LOCATION_ID,
+            "filter.limit": 5
+        }
+    ))
+    
+    # Strategy 2: Category-based search with location
+    category = categorize_ingredient(ingredient_name)
+    if category != "Other":
+        strategies.append((
+            "category_search",
+            {
+                "filter.term": ingredient_name,
+                "filter.locationId": KROGER_LOCATION_ID,
+                "filter.category": category,
+                "filter.limit": 5
+            }
+        ))
+    
+    # Strategy 3: Brand + generic search for common items
+    brand_mappings = {
+        "milk": ["organic valley", "horizon", "kroger"],
+        "bread": ["wonder", "sara lee", "kroger"],
+        "chicken": ["tyson", "perdue", "kroger"],
+        "eggs": ["eggland's best", "kroger"],
+        "cheese": ["kraft", "sargento", "kroger"],
+        "yogurt": ["chobani", "yoplait", "kroger"],
+        "rice": ["minute rice", "uncle ben's", "kroger"],
+        "pasta": ["barilla", "ronzoni", "kroger"]
+    }
+    
+    for key, brands in brand_mappings.items():
+        if key in ingredient_lower:
+            for brand in brands:
+                strategies.append((
+                    f"brand_{brand}",
+                    {
+                        "filter.term": f"{brand} {ingredient_name}",
+                        "filter.locationId": KROGER_LOCATION_ID,
+                        "filter.limit": 3
+                    }
+                ))
+            break
+    
+    # Strategy 4: Alternative names for common ingredients
+    alternative_names = {
+        "paneer": ["cottage cheese", "farmer cheese"],
+        "quinoa": ["quinoa grain", "organic quinoa"],
+        "ghee": ["clarified butter", "butter oil"],
+        "garam masala": ["indian spice blend", "curry powder"],
+        "turmeric": ["turmeric powder", "curcumin"],
+        "cumin": ["cumin seeds", "ground cumin"],
+        "chickpeas": ["garbanzo beans", "chana"],
+        "toor dal": ["pigeon peas", "split peas"],
+        "moong dal": ["mung beans", "green lentils"]
+    }
+    
+    for key, alternatives in alternative_names.items():
+        if key in ingredient_lower:
+            for alt_name in alternatives:
+                strategies.append((
+                    f"alternative_{alt_name.replace(' ', '_')}",
+                    {
+                        "filter.term": alt_name,
+                        "filter.locationId": KROGER_LOCATION_ID,
+                        "filter.limit": 3
+                    }
+                ))
+            break
+    
+    # Strategy 5: Generic search with common grocery terms
+    if len(strategies) < 3:  # If we don't have many strategies, add generic ones
+        strategies.append((
+            "generic_search",
+            {
+                "filter.term": f"{ingredient_name} grocery",
+                "filter.locationId": KROGER_LOCATION_ID,
+                "filter.limit": 5
+            }
+        ))
+    
+    return strategies
+
+
+def _find_best_product_match(products: List[Dict[str, Any]], ingredient_name: str) -> Optional[Dict[str, Any]]:
+    """
+    Find the best matching product from search results.
+    Prioritizes products with prices and good name matches.
+    """
+    ingredient_lower = ingredient_name.lower()
+    scored_products = []
+    
+    for product in products:
+        score = 0
+        product_name = product.get("description", "").lower()
         
-        return None
+        # Check if product has price
+        has_price = False
+        items = product.get("items", [])
+        if items and items[0].get("price"):
+            has_price = True
+            score += 10
         
-    except Exception as e:
-        logger.debug(f"Kroger product search error for '{ingredient_name}': {e}")
-        return None
+        # Name similarity scoring
+        if ingredient_lower in product_name:
+            score += 5
+        if product_name in ingredient_lower:
+            score += 3
+        
+        # Exact word matches
+        ingredient_words = set(ingredient_lower.split())
+        product_words = set(product_name.split())
+        common_words = ingredient_words.intersection(product_words)
+        score += len(common_words) * 2
+        
+        # Brand preference (Kroger brand often cheaper)
+        brand = product.get("brand", "").lower()
+        if "kroger" in brand or "private selection" in brand:
+            score += 1
+        
+        if score > 0:
+            scored_products.append((score, product))
+    
+    # Return highest scoring product
+    if scored_products:
+        scored_products.sort(key=lambda x: x[0], reverse=True)
+        return scored_products[0][1]
+    
+    return None
+
+
+def _extract_product_data(product: Dict[str, Any], original_ingredient: str) -> Dict[str, Any]:
+    """
+    Extract relevant data from Kroger product response.
+    """
+    items = product.get("items", [])
+    price = None
+    
+    if items and items[0].get("price"):
+        price_data = items[0]["price"]
+        price = price_data.get("regular", price_data.get("promo"))
+    
+    return {
+        "name": product.get("description", original_ingredient),
+        "price": price,
+        "product_id": product.get("productId"),
+        "upc": product.get("upc"),
+        "brand": product.get("brand"),
+        "size": items[0].get("size") if items else None,
+        "image_url": product.get("images", [{}])[0].get("sizes", [{}])[0].get("url") if product.get("images") else None
+    }
 
 
 def search_and_price_ingredient(ingredient_name: str, quantity: float, unit: str) -> Dict[str, Any]:
     """
-    Search Kroger API for ingredient and get real pricing and product details.
-    Returns dict with: name, quantity, unit, price, product_id, upc, brand, category
+    Search Kroger API for ingredient and get pricing.
+    RETURNS ONLY KROGER PRODUCTS - NO FALLBACKS.
     
-    Falls back to estimated price only if Kroger API fails.
+    Returns None if not found on Kroger.
     """
-    # Try Kroger API FIRST (this is the primary method)
+    # Try Kroger API
     kroger_product = search_kroger_product(ingredient_name)
     
     if kroger_product and kroger_product.get("price"):
         # Successfully found on Kroger!
-        price = float(kroger_product["price"])
-        log_agent_message("GroceryAgent", f"✅ Found '{ingredient_name}' on Kroger: ${price} (Product ID: {kroger_product.get('product_id', 'N/A')})")
+        kroger_price = float(kroger_product["price"])
+        
+        log_agent_message("GroceryAgent", f"✅ Found '{ingredient_name}' on Kroger: ${kroger_price} (Product ID: {kroger_product.get('product_id', 'N/A')})")
         
         return {
             "name": kroger_product.get("name", ingredient_name),
             "quantity": quantity,
             "unit": unit,
-            "price": price,
+            "price": kroger_price,
             "product_id": kroger_product.get("product_id"),
             "upc": kroger_product.get("upc"),
             "brand": kroger_product.get("brand"),
             "category": categorize_ingredient(ingredient_name),
-            "source": "kroger_api"
+            "source": "kroger_api",
+            "found": True
         }
     
-    # Fallback ONLY if Kroger API failed
-    logger.warning(f"Kroger API failed for '{ingredient_name}', using fallback price estimate")
-    
-    ingredient_lower = ingredient_name.lower()
-    estimated_price = 3.99  # Default
-    
-    # Try to find a reasonable estimate
-    if ingredient_lower in INGREDIENT_PRICES:
-        estimated_price = INGREDIENT_PRICES[ingredient_lower]
-    else:
-        # Try partial match
-        for key, price in INGREDIENT_PRICES.items():
-            if key in ingredient_lower:
-                estimated_price = price
-                break
+    # NO FALLBACK - Return None to indicate not found
+    logger.warning(f"❌ '{ingredient_name}' NOT found on Kroger API")
     
     return {
         "name": ingredient_name,
         "quantity": quantity,
         "unit": unit,
-        "price": estimated_price,
+        "price": None,
         "product_id": None,
         "upc": None,
-        "brand": "Generic",
+        "brand": None,
         "category": categorize_ingredient(ingredient_name),
-        "source": "estimated"
+        "source": "not_found",
+        "found": False
     }
 
 
@@ -385,37 +555,44 @@ def create_grocery_list(recipe: Dict[str, Any], store: str = "Kroger") -> Tuple[
         item_details = search_and_price_ingredient(item_name, quantity, unit)
         tools_called.append("search_and_price_ingredient")
         
-        if item_details.get("source") == "kroger_api":
+        # ONLY include items found on Kroger
+        if item_details.get("found") and item_details.get("source") == "kroger_api":
             kroger_items_found += 1
             tools_called.append("kroger_api_success")
-        
-        # Format quantity display
-        quantity_display = f"{quantity} {unit}".strip()
-        if notes:
-            quantity_display += f" ({notes})"
-        
-        grocery_item = GroceryItem(
-            name=item_details["name"],
-            quantity=quantity_display,
-            category=item_details["category"],
-            estimated_price=item_details["price"]
-        )
-        
-        # Add extra metadata if from Kroger
-        if item_details.get("product_id"):
-            grocery_item.product_id = item_details["product_id"]
-            grocery_item.upc = item_details["upc"]
-            grocery_item.brand = item_details["brand"]
-        
-        grocery_items.append(grocery_item)
-        total_cost += item_details["price"]
+            
+            # Format quantity display
+            quantity_display = f"{quantity} {unit}".strip()
+            if notes:
+                quantity_display += f" ({notes})"
+            
+            grocery_item = GroceryItem(
+                name=item_details["name"],
+                quantity=quantity_display,
+                category=item_details["category"],
+                estimated_price=item_details["price"]
+            )
+            
+            # Add extra metadata from Kroger
+            if item_details.get("product_id"):
+                grocery_item.product_id = item_details["product_id"]
+                grocery_item.upc = item_details["upc"]
+                grocery_item.brand = item_details["brand"]
+            
+            grocery_items.append(grocery_item)
+            if item_details["price"] is not None:
+                total_cost += item_details["price"]
+            else:
+                logger.warning(f"Price is None for {item_name}")
+        else:
+            # Skip items not found on Kroger
+            logger.info(f"⏭️  Skipping '{item_name}' - not found on Kroger")
     
     # Log results
     if kroger_items_found > 0:
-        log_agent_message("GroceryAgent", f"✅ Found {kroger_items_found}/{len(ingredients)} items on Kroger with real prices!")
+        log_agent_message("GroceryAgent", f"✅ Found {kroger_items_found}/{len(ingredients)} items on Kroger")
     else:
-        log_agent_message("GroceryAgent", f"⚠️ Kroger API unavailable, using estimated prices")
-        tools_called.append("fallback_pricing")
+        log_agent_message("GroceryAgent", f"❌ No items found on Kroger - returning empty list")
+        tools_called.append("no_kroger_items")
     
     return {
         "store": store,

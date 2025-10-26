@@ -1,0 +1,1866 @@
+{
+  "generation_date": "2025-10-25T17:41:53.685162",
+  "user_email": "recipeuser1761439313@example.com",
+  "weekly_meals": {
+    "2025-10-25": {
+      "day_name": "Saturday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spiced Chickpea Flour Pancakes with Greek Yogurt",
+            "description": "Protein-rich Indian-inspired savory pancakes made with besan (chickpea flour) served with spiced Greek yogurt",
+            "cook_time": "15 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 62,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour (besan)",
+                "quantity": "80",
+                "unit": "g"
+              },
+              {
+                "name": "Greek yogurt (plain)",
+                "quantity": "200",
+                "unit": "g"
+              },
+              {
+                "name": "gluten-free oats",
+                "quantity": "30",
+                "unit": "g"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "15",
+                "unit": "ml"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "fresh coriander",
+                "quantity": "20",
+                "unit": "g"
+              },
+              {
+                "name": "water",
+                "quantity": "120",
+                "unit": "ml"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare batter**: Mix chickpea flour, turmeric, cumin, chili powder, and salt in a bowl\n2. **Add liquid**: Gradually whisk in water to form smooth batter, let rest 5 minutes\n3. **Cook pancakes**: Heat olive oil in non-stick pan, pour batter to make 3 pancakes, cook 3-4 minutes each side\n4. **Prepare yogurt**: Mix Greek yogurt with chopped coriander and pinch of salt\n5. **Serve**: Top pancakes with spiced yogurt and sprinkle with oats",
+            "image_url": "https://via.placeholder.com/400x300?text=Spiced+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "8c247668-4695-46ee-b3e9-03cece750760",
+            "local_image_path": "images/breakfast_Spiced_Chickpea_Flour_Pancakes_with_Greek_Yogurt_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Thai-Style Grilled Tofu with Mediterranean Quinoa Salad",
+            "description": "Spicy grilled tofu with aromatic herbs served over a fresh Mediterranean quinoa salad",
+            "cook_time": "25 minutes",
+            "calories": 770,
+            "protein": 45,
+            "carbs": 87,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "firm tofu",
+                "quantity": "200",
+                "unit": "g"
+              },
+              {
+                "name": "quinoa",
+                "quantity": "80",
+                "unit": "g"
+              },
+              {
+                "name": "cherry tomatoes",
+                "quantity": "150",
+                "unit": "g"
+              },
+              {
+                "name": "cucumber",
+                "quantity": "100",
+                "unit": "g"
+              },
+              {
+                "name": "red bell pepper",
+                "quantity": "80",
+                "unit": "g"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "20",
+                "unit": "ml"
+              },
+              {
+                "name": "Thai red curry paste",
+                "quantity": "15",
+                "unit": "g"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "30",
+                "unit": "ml"
+              },
+              {
+                "name": "fresh basil",
+                "quantity": "15",
+                "unit": "g"
+              },
+              {
+                "name": "fresh mint",
+                "quantity": "10",
+                "unit": "g"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "60",
+                "unit": "g"
+              },
+              {
+                "name": "red chili flakes",
+                "quantity": "1",
+                "unit": "tsp"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse and cook quinoa in 160ml water for 15 minutes, let cool\n2. **Marinate tofu**: Cut tofu into slabs, mix curry paste with 10ml olive oil and lime juice, marinate tofu 10 minutes\n3. **Grill tofu**: Heat grill pan, cook tofu 4-5 minutes each side until charred\n4. **Prepare salad**: Dice tomatoes, cucumber, bell pepper; mix with quinoa\n5. **Make dressing**: Whisk remaining olive oil, lime juice, chili flakes\n6. **Assemble**: Toss salad with dressing, herbs, and crumbled feta; serve with sliced grilled tofu",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Grilled+Tofu+Quinoa",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "0fbd58f8-7efd-4268-85a5-b9b4553a6847",
+            "local_image_path": "images/lunch_Thai-Style_Grilled_Tofu_with_Mediterranean_Quinoa_Salad_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Spicy Indian-Italian Fusion Eggplant Curry with Polenta",
+            "description": "Aromatic eggplant curry with Indian spices served over creamy Italian polenta with Mediterranean herbs",
+            "cook_time": "35 minutes",
+            "calories": 880,
+            "protein": 53,
+            "carbs": 101,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "eggplant",
+                "quantity": "300",
+                "unit": "g"
+              },
+              {
+                "name": "polenta (cornmeal)",
+                "quantity": "80",
+                "unit": "g"
+              },
+              {
+                "name": "paneer cheese",
+                "quantity": "150",
+                "unit": "g"
+              },
+              {
+                "name": "canned tomatoes",
+                "quantity": "200",
+                "unit": "g"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "100",
+                "unit": "ml"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "25",
+                "unit": "ml"
+              },
+              {
+                "name": "onion",
+                "quantity": "100",
+                "unit": "g"
+              },
+              {
+                "name": "garlic",
+                "quantity": "15",
+                "unit": "g"
+              },
+              {
+                "name": "ginger",
+                "quantity": "10",
+                "unit": "g"
+              },
+              {
+                "name": "garam masala",
+                "quantity": "2",
+                "unit": "tsp"
+              },
+              {
+                "name": "paprika",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "cayenne pepper",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "fresh oregano",
+                "quantity": "10",
+                "unit": "g"
+              },
+              {
+                "name": "parmesan cheese",
+                "quantity": "30",
+                "unit": "g"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "400",
+                "unit": "ml"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare vegetables**: Cube eggplant and paneer, dice onion, mince garlic and ginger\n2. **Start polenta**: Bring 300ml broth to boil, gradually whisk in polenta, simmer 20 minutes stirring frequently\n3. **Cook curry base**: Heat olive oil, sauté onion, garlic, ginger until fragrant\n4. **Add spices**: Add garam masala, paprika, cayenne, cook 1 minute\n5. **Build curry**: Add eggplant, cook 8 minutes; add tomatoes, coconut milk, simmer 10 minutes\n6. **Add paneer**: Gently fold in paneer cubes, cook 5 minutes\n7. **Finish polenta**: Stir in parmesan and oregano, season with salt\n8. **Serve**: Spoon curry over creamy polenta, garnish with fresh oregano",
+            "image_url": "https://via.placeholder.com/400x300?text=Spicy+Eggplant+Curry+Polenta",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "52eebfad-0ac3-4c9f-b18a-76ac504d942c",
+            "local_image_path": "images/dinner_Spicy_Indian-Italian_Fusion_Eggplant_Curry_with_Polenta_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-26": {
+      "day_name": "Sunday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spiced Mediterranean Chickpea Scramble with Gluten-Free Toast",
+            "description": "A protein-packed vegetarian breakfast with aromatic Indian and Mediterranean spices, served with gluten-free toast",
+            "cook_time": "15 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 63,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "canned chickpeas",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "gluten-free bread",
+                "quantity": "2",
+                "unit": "slices"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "red bell pepper",
+                "quantity": "1/2",
+                "unit": "medium"
+              },
+              {
+                "name": "onion",
+                "quantity": "1/4",
+                "unit": "medium"
+              },
+              {
+                "name": "turmeric",
+                "quantity": "1/2",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin",
+                "quantity": "1/2",
+                "unit": "tsp"
+              },
+              {
+                "name": "paprika",
+                "quantity": "1/2",
+                "unit": "tsp"
+              },
+              {
+                "name": "cayenne pepper",
+                "quantity": "1/4",
+                "unit": "tsp"
+              },
+              {
+                "name": "fresh spinach",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "cherry tomatoes",
+                "quantity": "1/2",
+                "unit": "cup"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "1/4",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prep ingredients**: Drain and rinse chickpeas, dice onion and bell pepper, halve cherry tomatoes\n\n2. **Heat oil**: Heat olive oil in a large skillet over medium heat\n\n3. **Sauté vegetables**: Add onion and bell pepper, cook for 3-4 minutes until softened\n\n4. **Add spices**: Add turmeric, cumin, paprika, and cayenne. Cook for 30 seconds until fragrant\n\n5. **Add chickpeas**: Add chickpeas and mash lightly with a fork, leaving some texture. Cook for 3-4 minutes\n\n6. **Add greens**: Add spinach and cherry tomatoes, cook until spinach wilts\n\n7. **Finish and serve**: Top with crumbled feta cheese and serve with toasted gluten-free bread",
+            "image_url": "https://via.placeholder.com/400x300?text=Spiced+Chickpea+Scramble",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "d9e38f82-90de-4a61-9569-609458d2aabf",
+            "local_image_path": "images/breakfast_Spiced_Mediterranean_Chickpea_Scramble_with_Gluten-Free_Toast_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Thai-Style Spicy Grilled Tofu with Coconut Rice",
+            "description": "Marinated grilled tofu with Thai spices served over fragrant coconut rice with vegetables",
+            "cook_time": "25 minutes",
+            "calories": 770,
+            "protein": 46,
+            "carbs": 87,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "extra firm tofu",
+                "quantity": "8",
+                "unit": "oz"
+              },
+              {
+                "name": "jasmine rice",
+                "quantity": "3/4",
+                "unit": "cup"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce (gluten-free)",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "coconut oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "red curry paste",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "ginger",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "garlic",
+                "quantity": "2",
+                "unit": "cloves"
+              },
+              {
+                "name": "red chili flakes",
+                "quantity": "1/2",
+                "unit": "tsp"
+              },
+              {
+                "name": "broccoli florets",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "snap peas",
+                "quantity": "1/2",
+                "unit": "cup"
+              },
+              {
+                "name": "cilantro",
+                "quantity": "1/4",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare tofu**: Press tofu to remove excess water, then cut into thick slabs\n\n2. **Make marinade**: Mix soy sauce, lime juice, red curry paste, minced ginger, garlic, and chili flakes\n\n3. **Marinate tofu**: Marinate tofu in the mixture for 10 minutes\n\n4. **Cook rice**: Cook jasmine rice with coconut milk and water (1:1 ratio) until fluffy\n\n5. **Grill tofu**: Heat coconut oil in a grill pan, grill marinated tofu for 3-4 minutes per side until golden\n\n6. **Steam vegetables**: Steam broccoli and snap peas until tender-crisp\n\n7. **Assemble**: Serve grilled tofu over coconut rice with steamed vegetables, garnish with fresh cilantro",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Grilled+Tofu",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "2f915fd8-d4d3-49df-b91a-a696fd26cbec",
+            "local_image_path": "images/lunch_Thai-Style_Spicy_Grilled_Tofu_with_Coconut_Rice_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Indian-Spiced Grilled Paneer with Mediterranean Quinoa Pilaf",
+            "description": "Aromatic grilled paneer with warming Indian spices served alongside a Mediterranean-inspired quinoa pilaf",
+            "cook_time": "30 minutes",
+            "calories": 880,
+            "protein": 52,
+            "carbs": 100,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "paneer",
+                "quantity": "8",
+                "unit": "oz"
+              },
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "garam masala",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "ground coriander",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "ground cumin",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "smoked paprika",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "cayenne pepper",
+                "quantity": "1/2",
+                "unit": "tsp"
+              },
+              {
+                "name": "Greek yogurt",
+                "quantity": "1/4",
+                "unit": "cup"
+              },
+              {
+                "name": "sun-dried tomatoes",
+                "quantity": "1/4",
+                "unit": "cup"
+              },
+              {
+                "name": "zucchini",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "red onion",
+                "quantity": "1/2",
+                "unit": "medium"
+              },
+              {
+                "name": "kalamata olives",
+                "quantity": "1/4",
+                "unit": "cup"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "fresh mint",
+                "quantity": "2",
+                "unit": "tbsp"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare spice mix**: Combine garam masala, coriander, cumin, paprika, and cayenne with Greek yogurt\n\n2. **Marinate paneer**: Cut paneer into thick pieces and marinate in spice mixture for 15 minutes\n\n3. **Prepare quinoa**: Rinse quinoa and toast in a dry pan for 2 minutes until fragrant\n\n4. **Cook pilaf**: Heat 1 tbsp olive oil, sauté diced red onion and zucchini for 3 minutes\n\n5. **Add quinoa**: Add toasted quinoa and vegetable broth, bring to boil, then simmer covered for 15 minutes\n\n6. **Grill paneer**: Heat remaining olive oil in grill pan, grill marinated paneer for 2-3 minutes per side\n\n7. **Finish pilaf**: Stir chopped sun-dried tomatoes, olives, and mint into cooked quinoa\n\n8. **Serve**: Plate quinoa pilaf topped with grilled paneer pieces",
+            "image_url": "https://via.placeholder.com/400x300?text=Indian+Spiced+Paneer",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "9748e741-3bc6-42e0-b9a0-4cb46cb18691",
+            "local_image_path": "images/dinner_Indian-Spiced_Grilled_Paneer_with_Mediterranean_Quinoa_Pilaf_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-27": {
+      "day_name": "Monday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spicy Indian Chickpea Flour Pancakes (Besan Chilla)",
+            "description": "Protein-rich, savory gluten-free pancakes with Indian spices and vegetables",
+            "cook_time": "20 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 63,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour (besan)",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1.25",
+                "unit": "cups"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "onion, finely chopped",
+                "quantity": "1",
+                "unit": "small"
+              },
+              {
+                "name": "tomato, finely chopped",
+                "quantity": "1",
+                "unit": "small"
+              },
+              {
+                "name": "green chilies, minced",
+                "quantity": "2",
+                "unit": "pieces"
+              },
+              {
+                "name": "cilantro, chopped",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "greek yogurt",
+                "quantity": "0.5",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare batter**: In a bowl, whisk chickpea flour with water until smooth. Add turmeric, chili powder, cumin, and salt.\n\n2. **Add vegetables**: Mix in chopped onion, tomato, green chilies, and cilantro. Let batter rest for 10 minutes.\n\n3. **Cook pancakes**: Heat 1 tsp oil in a non-stick pan. Pour 1/3 of batter to make a thin pancake. Cook for 2-3 minutes until golden.\n\n4. **Flip and finish**: Flip carefully and cook another 2 minutes. Repeat for remaining batter.\n\n5. **Serve**: Serve hot with Greek yogurt on the side.",
+            "image_url": "https://via.placeholder.com/400x300?text=Spicy+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "37c2a067-1fd6-490b-9db1-315c6d960c1d",
+            "local_image_path": "images/breakfast_Spicy_Indian_Chickpea_Flour_Pancakes_Besan_Chilla_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Mediterranean Grilled Vegetable and Quinoa Bowl",
+            "description": "Colorful grilled vegetables over quinoa with tahini dressing and feta cheese",
+            "cook_time": "35 minutes",
+            "calories": 770,
+            "protein": 46,
+            "carbs": 88,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "zucchini, sliced",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "eggplant, cubed",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "red bell pepper, sliced",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "red onion, sliced",
+                "quantity": "0.5",
+                "unit": "large"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "oregano",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "paprika",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "black pepper",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "4",
+                "unit": "oz"
+              },
+              {
+                "name": "tahini",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lemon juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "garlic, minced",
+                "quantity": "1",
+                "unit": "clove"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse quinoa and cook in vegetable broth according to package directions (about 15 minutes).\n\n2. **Prepare vegetables**: Toss sliced vegetables with 2 tbsp olive oil, oregano, paprika, salt, and pepper.\n\n3. **Grill vegetables**: Heat grill pan over medium-high heat. Grill vegetables for 3-4 minutes per side until tender and charred.\n\n4. **Make dressing**: Whisk tahini, lemon juice, minced garlic, and 1 tbsp olive oil with 2 tbsp water until smooth.\n\n5. **Assemble bowl**: Serve grilled vegetables over quinoa, top with crumbled feta and drizzle with tahini dressing.",
+            "image_url": "https://via.placeholder.com/400x300?text=Mediterranean+Quinoa+Bowl",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "c063d32c-f3d7-4db9-bd81-81f08a215879",
+            "local_image_path": "images/lunch_Mediterranean_Grilled_Vegetable_and_Quinoa_Bowl_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Thai-Inspired Spicy Eggplant and Tofu Stir-Fry with Rice",
+            "description": "Savory and spicy Thai-style stir-fry with crispy tofu, eggplant, and jasmine rice",
+            "cook_time": "30 minutes",
+            "calories": 880,
+            "protein": 52,
+            "carbs": 99,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "jasmine rice",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "extra-firm tofu",
+                "quantity": "8",
+                "unit": "oz"
+              },
+              {
+                "name": "japanese eggplant, sliced",
+                "quantity": "2",
+                "unit": "medium"
+              },
+              {
+                "name": "coconut oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "red curry paste",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce (gluten-free)",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "brown sugar",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "thai basil leaves",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "red chilies, sliced",
+                "quantity": "2",
+                "unit": "pieces"
+              },
+              {
+                "name": "garlic, minced",
+                "quantity": "3",
+                "unit": "cloves"
+              },
+              {
+                "name": "ginger, minced",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "bell pepper, sliced",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "green onions, chopped",
+                "quantity": "3",
+                "unit": "stalks"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook rice**: Prepare jasmine rice according to package directions.\n\n2. **Prepare tofu**: Press tofu to remove moisture, then cube. Heat 1 tbsp coconut oil in a large wok and fry tofu until golden. Remove and set aside.\n\n3. **Cook eggplant**: Add 1 tbsp oil to wok and stir-fry eggplant slices until tender, about 5 minutes. Remove and set aside.\n\n4. **Make sauce**: In remaining oil, sauté garlic, ginger, and chilies for 30 seconds. Add curry paste and cook 1 minute. Stir in coconut milk, soy sauce, brown sugar, and lime juice.\n\n5. **Combine**: Return tofu and eggplant to wok. Add bell pepper and stir-fry 2-3 minutes. Add Thai basil and green onions, cook 1 minute more.\n\n6. **Serve**: Serve immediately over jasmine rice.",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Eggplant+Tofu+Stir-Fry",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "5e2e743d-7e0d-4efc-9d7f-2ae687ebcb20",
+            "local_image_path": "images/dinner_Thai-Inspired_Spicy_Eggplant_and_Tofu_Stir-Fry_with_Rice_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-28": {
+      "day_name": "Tuesday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spicy Indian Chickpea Flour Pancakes (Besan Chilla)",
+            "description": "Protein-rich savory pancakes made with chickpea flour and spiced with Indian seasonings",
+            "cook_time": "15 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 62,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1.25",
+                "unit": "cups"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "onion",
+                "quantity": "1",
+                "unit": "small, finely chopped"
+              },
+              {
+                "name": "tomato",
+                "quantity": "1",
+                "unit": "small, chopped"
+              },
+              {
+                "name": "fresh coriander",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "plain Greek yogurt",
+                "quantity": "0.5",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Make the batter**: In a large bowl, whisk together chickpea flour, turmeric, cumin powder, chili powder, and salt.\n\n2. **Add liquid**: Gradually add water while whisking to create a smooth, lump-free batter. Let rest for 5 minutes.\n\n3. **Add vegetables**: Stir in chopped onion, tomato, and fresh coriander.\n\n4. **Cook pancakes**: Heat 1 tsp oil in a non-stick pan over medium heat. Pour 1/3 of batter and spread evenly. Cook for 2-3 minutes until golden.\n\n5. **Flip and finish**: Flip carefully and cook another 2 minutes. Repeat for remaining batter.\n\n6. **Serve**: Serve hot with Greek yogurt on the side for extra protein and cooling effect.",
+            "image_url": "https://via.placeholder.com/400x300?text=Spicy+Indian+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "3e1ae9b6-289c-4770-8bee-b66548b47fe9",
+            "local_image_path": "images/breakfast_Spicy_Indian_Chickpea_Flour_Pancakes_Besan_Chilla_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Mediterranean Grilled Vegetable and Quinoa Bowl",
+            "description": "Colorful grilled vegetables over protein-rich quinoa with Mediterranean herbs and feta cheese",
+            "cook_time": "25 minutes",
+            "calories": 770,
+            "protein": 46,
+            "carbs": 88,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "zucchini",
+                "quantity": "1",
+                "unit": "large, sliced"
+              },
+              {
+                "name": "bell peppers",
+                "quantity": "2",
+                "unit": "mixed colors, sliced"
+              },
+              {
+                "name": "eggplant",
+                "quantity": "1",
+                "unit": "medium, sliced"
+              },
+              {
+                "name": "red onion",
+                "quantity": "1",
+                "unit": "medium, sliced"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "oregano",
+                "quantity": "2",
+                "unit": "tsp"
+              },
+              {
+                "name": "garlic powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red pepper flakes",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "4",
+                "unit": "oz"
+              },
+              {
+                "name": "fresh basil",
+                "quantity": "0.25",
+                "unit": "cup"
+              },
+              {
+                "name": "lemon juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse quinoa and cook in vegetable broth according to package directions (about 15 minutes).\n\n2. **Prep vegetables**: Slice all vegetables into even pieces. Toss with 2 tbsp olive oil, oregano, garlic powder, red pepper flakes, and salt.\n\n3. **Preheat grill**: Heat grill or grill pan to medium-high heat.\n\n4. **Grill vegetables**: Grill vegetables for 3-4 minutes per side until tender and lightly charred.\n\n5. **Assemble bowl**: Place cooked quinoa in bowl, top with grilled vegetables.\n\n6. **Finish and serve**: Crumble feta cheese over top, drizzle with remaining olive oil and lemon juice, garnish with fresh basil.",
+            "image_url": "https://via.placeholder.com/400x300?text=Mediterranean+Grilled+Vegetable+Quinoa+Bowl",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "123b0ab9-6e1c-4afe-b5e1-55ee7633c317",
+            "local_image_path": "images/lunch_Mediterranean_Grilled_Vegetable_and_Quinoa_Bowl_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Thai-Spiced Grilled Tofu with Coconut Rice",
+            "description": "Marinated and grilled tofu with aromatic Thai spices served over creamy coconut rice with vegetables",
+            "cook_time": "30 minutes",
+            "calories": 880,
+            "protein": 52,
+            "carbs": 100,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "extra firm tofu",
+                "quantity": "14",
+                "unit": "oz"
+              },
+              {
+                "name": "jasmine rice",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "sesame oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "fresh ginger",
+                "quantity": "1",
+                "unit": "tbsp, minced"
+              },
+              {
+                "name": "garlic",
+                "quantity": "3",
+                "unit": "cloves, minced"
+              },
+              {
+                "name": "red curry paste",
+                "quantity": "2",
+                "unit": "tsp"
+              },
+              {
+                "name": "brown sugar",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "red bell pepper",
+                "quantity": "1",
+                "unit": "large, sliced"
+              },
+              {
+                "name": "snap peas",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "carrots",
+                "quantity": "2",
+                "unit": "medium, julienned"
+              },
+              {
+                "name": "coconut oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "fresh cilantro",
+                "quantity": "0.25",
+                "unit": "cup"
+              },
+              {
+                "name": "lime wedges",
+                "quantity": "4",
+                "unit": "pieces"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Press and slice tofu**: Press tofu to remove excess water, then cut into thick slabs. Slice into grillable pieces.\n\n2. **Make marinade**: Whisk together soy sauce, lime juice, sesame oil, ginger, garlic, curry paste, and brown sugar.\n\n3. **Marinate tofu**: Marinate tofu in half the sauce for at least 15 minutes.\n\n4. **Cook rice**: Combine rice, coconut milk, and water in a pot. Bring to boil, reduce heat, cover and simmer 18 minutes.\n\n5. **Grill tofu**: Heat grill or grill pan. Grill marinated tofu 4-5 minutes per side until nicely charred.\n\n6. **Sauté vegetables**: Heat coconut oil in a large pan. Stir-fry bell pepper, snap peas, and carrots for 3-4 minutes until crisp-tender.\n\n7. **Combine and serve**: Toss vegetables with remaining marinade. Serve grilled tofu over coconut rice with sautéed vegetables. Garnish with cilantro and lime wedges.",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Spiced+Grilled+Tofu+Coconut+Rice",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "5ac5cbf0-39c4-4271-96fd-61db045536de",
+            "local_image_path": "images/dinner_Thai-Spiced_Grilled_Tofu_with_Coconut_Rice_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-29": {
+      "day_name": "Wednesday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spiced Indian Chickpea Flour Pancakes (Besan Chilla)",
+            "description": "Protein-rich savory pancakes with Indian spices and vegetables",
+            "cook_time": "15 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 62,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1.25",
+                "unit": "cups"
+              },
+              {
+                "name": "onion",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "tomato",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "green chili",
+                "quantity": "1",
+                "unit": "piece"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "coriander powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "fresh cilantro",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "gluten-free bread",
+                "quantity": "1",
+                "unit": "slice"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare batter**: In a bowl, whisk chickpea flour with water until smooth. Add turmeric, cumin powder, coriander powder, red chili powder, and salt.\n\n2. **Add vegetables**: Finely chop onion, tomato, and green chili. Mix into batter with cilantro.\n\n3. **Cook pancakes**: Heat 1 tbsp olive oil in non-stick pan. Pour half batter, spread evenly. Cook 3-4 minutes until golden, flip and cook 2-3 minutes more.\n\n4. **Repeat**: Make second pancake with remaining batter and oil.\n\n5. **Serve**: Serve hot with toasted gluten-free bread on the side.",
+            "image_url": "https://via.placeholder.com/400x300?text=Spiced+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "0235141b-e37d-4c8a-bd39-b474d6b4ad41",
+            "local_image_path": "images/breakfast_Spiced_Indian_Chickpea_Flour_Pancakes_Besan_Chilla_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Mediterranean Grilled Eggplant and Quinoa Bowl",
+            "description": "Savory grilled eggplant with herb-infused quinoa and tahini dressing",
+            "cook_time": "25 minutes",
+            "calories": 770,
+            "protein": 45,
+            "carbs": 88,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "eggplant",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "chickpeas",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "tahini",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lemon juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "garlic",
+                "quantity": "2",
+                "unit": "cloves"
+              },
+              {
+                "name": "oregano",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "paprika",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red pepper flakes",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "cucumber",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "cherry tomatoes",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "fresh parsley",
+                "quantity": "0.25",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse quinoa and cook in 2 cups water for 15 minutes until fluffy.\n\n2. **Prepare eggplant**: Slice eggplant into rounds, brush with 2 tbsp olive oil, season with salt, oregano, and paprika.\n\n3. **Grill eggplant**: Grill on medium-high heat for 4-5 minutes per side until tender and charred.\n\n4. **Make dressing**: Whisk tahini, lemon juice, minced garlic, red pepper flakes, and 1 tbsp olive oil.\n\n5. **Prepare vegetables**: Dice cucumber, halve cherry tomatoes, chop parsley.\n\n6. **Assemble bowl**: Layer quinoa, grilled eggplant, chickpeas, vegetables. Drizzle with tahini dressing.",
+            "image_url": "https://via.placeholder.com/400x300?text=Mediterranean+Quinoa+Bowl",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "e270abe0-8edf-4acf-95e8-59e1e2b52efd",
+            "local_image_path": "images/lunch_Mediterranean_Grilled_Eggplant_and_Quinoa_Bowl_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Thai-Spiced Grilled Tofu with Italian Herb Rice",
+            "description": "Fusion dish with Thai-marinated grilled tofu and savory Italian herb rice",
+            "cook_time": "30 minutes",
+            "calories": 880,
+            "protein": 53,
+            "carbs": 100,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "extra firm tofu",
+                "quantity": "14",
+                "unit": "oz"
+              },
+              {
+                "name": "jasmine rice",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "garlic",
+                "quantity": "3",
+                "unit": "cloves"
+              },
+              {
+                "name": "ginger",
+                "quantity": "1",
+                "unit": "inch piece"
+              },
+              {
+                "name": "red chili flakes",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "basil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "oregano",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "bell pepper",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "zucchini",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "nutritional yeast",
+                "quantity": "2",
+                "unit": "tbsp"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Marinate tofu**: Press and cube tofu. Marinate in coconut milk, soy sauce, lime juice, minced garlic, grated ginger, and chili flakes for 15 minutes.\n\n2. **Cook rice**: Cook jasmine rice in vegetable broth with dried basil and oregano until tender, about 18 minutes.\n\n3. **Prepare vegetables**: Slice bell pepper and zucchini into strips.\n\n4. **Grill tofu**: Heat 2 tbsp olive oil in grill pan. Grill marinated tofu cubes for 3-4 minutes per side until golden and crispy.\n\n5. **Sauté vegetables**: In same pan, sauté bell pepper and zucchini with remaining oil for 5-6 minutes until tender.\n\n6. **Finish rice**: Stir nutritional yeast into cooked rice for extra protein and umami flavor.\n\n7. **Serve**: Plate herb rice topped with grilled tofu and sautéed vegetables.",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Grilled+Tofu+Rice",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "d43fabc8-edc9-4039-8785-986584628dc0",
+            "local_image_path": "images/dinner_Thai-Spiced_Grilled_Tofu_with_Italian_Herb_Rice_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-30": {
+      "day_name": "Thursday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spicy Indian Chickpea Flour Pancakes (Besan Chilla)",
+            "description": "Protein-rich savory pancakes with Indian spices and vegetables",
+            "cook_time": "15 minutes",
+            "calories": 550,
+            "protein": 33,
+            "carbs": 63,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1.25",
+                "unit": "cups"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "red onion",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "tomato",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "green chili",
+                "quantity": "1",
+                "unit": "piece"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.25",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "salt",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "fresh cilantro",
+                "quantity": "2",
+                "unit": "tablespoons"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Prepare batter**: In a bowl, whisk chickpea flour with water until smooth. Let rest for 10 minutes.\n\n2. **Add spices**: Mix in turmeric, cumin, chili powder, and salt.\n\n3. **Prepare vegetables**: Finely chop onion, tomato, green chili, and cilantro. Add to batter.\n\n4. **Cook pancakes**: Heat 1 tsp oil in non-stick pan. Pour 1/3 of batter, spread thin. Cook 3-4 minutes until golden.\n\n5. **Flip and finish**: Flip carefully, cook 2-3 minutes more. Repeat for remaining batter.\n\n6. **Serve**: Serve hot with yogurt or chutney.",
+            "image_url": "https://via.placeholder.com/400x300?text=Spicy+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "259f98f5-2b7d-4c40-bcc3-4eb8f96240ce",
+            "local_image_path": "images/breakfast_Spicy_Indian_Chickpea_Flour_Pancakes_Besan_Chilla_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Mediterranean Grilled Vegetable and Quinoa Bowl",
+            "description": "Grilled Mediterranean vegetables with quinoa and feta cheese",
+            "cook_time": "25 minutes",
+            "calories": 770,
+            "protein": 46,
+            "carbs": 88,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "zucchini",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "red bell pepper",
+                "quantity": "1",
+                "unit": "large"
+              },
+              {
+                "name": "eggplant",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "red onion",
+                "quantity": "0.5",
+                "unit": "large"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "4",
+                "unit": "ounces"
+              },
+              {
+                "name": "dried oregano",
+                "quantity": "1",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "garlic powder",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "red pepper flakes",
+                "quantity": "0.25",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "lemon juice",
+                "quantity": "2",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "salt",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse quinoa and cook in vegetable broth for 15 minutes until fluffy.\n\n2. **Prepare vegetables**: Cut zucchini, bell pepper, eggplant, and onion into large chunks.\n\n3. **Season vegetables**: Toss with 2 tbsp olive oil, oregano, garlic powder, red pepper flakes, and salt.\n\n4. **Grill vegetables**: Grill on medium-high heat for 12-15 minutes, turning occasionally until tender and charred.\n\n5. **Make dressing**: Whisk remaining olive oil with lemon juice.\n\n6. **Assemble bowl**: Serve quinoa topped with grilled vegetables, crumbled feta, and dressing.",
+            "image_url": "https://via.placeholder.com/400x300?text=Mediterranean+Quinoa+Bowl",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "c6a84165-3137-42be-8981-bd7574b458c0",
+            "local_image_path": "images/lunch_Mediterranean_Grilled_Vegetable_and_Quinoa_Bowl_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Spicy Thai-Style Grilled Tofu with Coconut Rice",
+            "description": "Marinated grilled tofu with fragrant coconut rice and Thai flavors",
+            "cook_time": "30 minutes",
+            "calories": 880,
+            "protein": 51,
+            "carbs": 99,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "extra-firm tofu",
+                "quantity": "14",
+                "unit": "ounces"
+              },
+              {
+                "name": "jasmine rice",
+                "quantity": "0.75",
+                "unit": "cup"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "0.75",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce",
+                "quantity": "3",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "sesame oil",
+                "quantity": "2",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "1",
+                "unit": "tablespoon"
+              },
+              {
+                "name": "garlic",
+                "quantity": "3",
+                "unit": "cloves"
+              },
+              {
+                "name": "fresh ginger",
+                "quantity": "1",
+                "unit": "tablespoon"
+              },
+              {
+                "name": "red chili flakes",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tablespoons"
+              },
+              {
+                "name": "brown sugar",
+                "quantity": "1",
+                "unit": "tablespoon"
+              },
+              {
+                "name": "green onions",
+                "quantity": "3",
+                "unit": "stalks"
+              },
+              {
+                "name": "fresh basil",
+                "quantity": "0.25",
+                "unit": "cup"
+              },
+              {
+                "name": "salt",
+                "quantity": "0.5",
+                "unit": "teaspoon"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Press tofu**: Drain and press tofu for 15 minutes, then cut into thick slabs.\n\n2. **Make marinade**: Mix soy sauce, sesame oil, minced garlic, ginger, chili flakes, lime juice, and brown sugar.\n\n3. **Marinate tofu**: Marinate tofu in mixture for 15 minutes, turning once.\n\n4. **Cook rice**: Combine rice, coconut milk, water, and salt. Bring to boil, reduce heat, simmer covered 18 minutes.\n\n5. **Grill tofu**: Heat olive oil in grill pan. Grill tofu 4-5 minutes per side until golden and charred.\n\n6. **Finish and serve**: Fluff rice, top with grilled tofu, sliced green onions, and fresh basil. Drizzle with remaining marinade.",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Grilled+Tofu+Rice",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "5b5d6b89-e9e0-4c66-8f7a-64ce3e235724",
+            "local_image_path": "images/dinner_Spicy_Thai-Style_Grilled_Tofu_with_Coconut_Rice_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    },
+    "2025-10-31": {
+      "day_name": "Friday",
+      "meals": {
+        "breakfast": [
+          {
+            "title": "Spicy Indian Chickpea Flour Pancakes (Besan Chilla)",
+            "description": "Protein-rich savory pancakes with Indian spices and vegetables",
+            "cook_time": "20 minutes",
+            "calories": 550,
+            "protein": 32,
+            "carbs": 62,
+            "fat": 21,
+            "ingredients": [
+              {
+                "name": "chickpea flour",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1.25",
+                "unit": "cups"
+              },
+              {
+                "name": "diced tomatoes",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "diced onions",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "chopped cilantro",
+                "quantity": "0.25",
+                "unit": "cup"
+              },
+              {
+                "name": "turmeric powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "cumin powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red chili powder",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "gluten-free bread",
+                "quantity": "1",
+                "unit": "slice"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Mix the batter**: In a bowl, combine chickpea flour, turmeric, cumin, chili powder, and salt. Gradually add water while whisking to avoid lumps.\n\n2. **Add vegetables**: Fold in diced tomatoes, onions, and cilantro into the batter.\n\n3. **Cook pancakes**: Heat 1 tbsp olive oil in a non-stick pan. Pour half the batter and spread evenly. Cook for 3-4 minutes until golden.\n\n4. **Flip and finish**: Flip carefully and cook for another 2-3 minutes. Repeat with remaining batter.\n\n5. **Serve**: Toast the gluten-free bread with remaining oil and serve alongside the chillas.",
+            "image_url": "https://via.placeholder.com/400x300?text=Spicy+Chickpea+Pancakes",
+            "user_id": 8,
+            "meal_type": "breakfast",
+            "chroma_id": "947ef260-ce3c-4e70-8de4-230cf4eb9e5c",
+            "local_image_path": "images/breakfast_Spicy_Indian_Chickpea_Flour_Pancakes_Besan_Chilla_0.jpg"
+          }
+        ],
+        "lunch": [
+          {
+            "title": "Mediterranean Grilled Vegetable and Quinoa Bowl",
+            "description": "Smoky grilled vegetables with herbs over protein-packed quinoa",
+            "cook_time": "35 minutes",
+            "calories": 770,
+            "protein": 46,
+            "carbs": 88,
+            "fat": 30,
+            "ingredients": [
+              {
+                "name": "quinoa",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "vegetable broth",
+                "quantity": "2",
+                "unit": "cups"
+              },
+              {
+                "name": "zucchini",
+                "quantity": "1",
+                "unit": "medium"
+              },
+              {
+                "name": "bell peppers",
+                "quantity": "2",
+                "unit": "medium"
+              },
+              {
+                "name": "eggplant",
+                "quantity": "0.5",
+                "unit": "medium"
+              },
+              {
+                "name": "cherry tomatoes",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "feta cheese",
+                "quantity": "4",
+                "unit": "oz"
+              },
+              {
+                "name": "olive oil",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "dried oregano",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "garlic powder",
+                "quantity": "1",
+                "unit": "tsp"
+              },
+              {
+                "name": "red pepper flakes",
+                "quantity": "0.5",
+                "unit": "tsp"
+              },
+              {
+                "name": "lemon juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "fresh basil",
+                "quantity": "0.25",
+                "unit": "cup"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Cook quinoa**: Rinse quinoa and cook in vegetable broth for 15 minutes until fluffy. Set aside.\n\n2. **Prep vegetables**: Cut zucchini, peppers, and eggplant into thick slices. Halve cherry tomatoes.\n\n3. **Season**: Toss vegetables with 2 tbsp olive oil, oregano, garlic powder, red pepper flakes, and salt.\n\n4. **Grill**: Heat grill or grill pan to medium-high. Grill vegetables for 4-5 minutes per side until charred and tender.\n\n5. **Assemble**: Serve grilled vegetables over quinoa, top with crumbled feta, fresh basil, lemon juice, and remaining olive oil.",
+            "image_url": "https://via.placeholder.com/400x300?text=Mediterranean+Grilled+Vegetable+Bowl",
+            "user_id": 8,
+            "meal_type": "lunch",
+            "chroma_id": "a31aefea-c93b-4371-bd4c-bf6cc1acb884",
+            "local_image_path": "images/lunch_Mediterranean_Grilled_Vegetable_and_Quinoa_Bowl_0.jpg"
+          }
+        ],
+        "dinner": [
+          {
+            "title": "Thai-Style Spicy Grilled Tofu with Coconut Rice",
+            "description": "Marinated grilled tofu with fragrant coconut jasmine rice and Thai herbs",
+            "cook_time": "45 minutes",
+            "calories": 880,
+            "protein": 52,
+            "carbs": 100,
+            "fat": 34,
+            "ingredients": [
+              {
+                "name": "extra-firm tofu",
+                "quantity": "14",
+                "unit": "oz"
+              },
+              {
+                "name": "jasmine rice",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "coconut milk",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "water",
+                "quantity": "1",
+                "unit": "cup"
+              },
+              {
+                "name": "soy sauce",
+                "quantity": "3",
+                "unit": "tbsp"
+              },
+              {
+                "name": "lime juice",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "brown sugar",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "garlic",
+                "quantity": "3",
+                "unit": "cloves"
+              },
+              {
+                "name": "fresh ginger",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "thai red curry paste",
+                "quantity": "1",
+                "unit": "tbsp"
+              },
+              {
+                "name": "sesame oil",
+                "quantity": "2",
+                "unit": "tbsp"
+              },
+              {
+                "name": "green beans",
+                "quantity": "6",
+                "unit": "oz"
+              },
+              {
+                "name": "thai basil",
+                "quantity": "0.5",
+                "unit": "cup"
+              },
+              {
+                "name": "cilantro",
+                "quantity": "0.25",
+                "unit": "cup"
+              },
+              {
+                "name": "lime wedges",
+                "quantity": "4",
+                "unit": "pieces"
+              }
+            ],
+            "instructions": "## Instructions\n\n1. **Marinate tofu**: Press tofu and cut into thick slabs. Mix soy sauce, lime juice, brown sugar, minced garlic, ginger, curry paste, and 1 tbsp sesame oil. Marinate tofu for 30 minutes.\n\n2. **Cook rice**: Combine rice, coconut milk, and water in a pot. Bring to boil, reduce heat, cover and simmer for 18 minutes.\n\n3. **Grill tofu**: Heat grill or grill pan. Grill marinated tofu for 4-5 minutes per side until charred. Reserve marinade.\n\n4. **Prepare vegetables**: Stir-fry green beans with remaining sesame oil for 3-4 minutes until tender-crisp.\n\n5. **Serve**: Plate coconut rice, top with grilled tofu and green beans. Drizzle with reserved marinade, garnish with Thai basil, cilantro, and lime wedges.",
+            "image_url": "https://via.placeholder.com/400x300?text=Thai+Spicy+Grilled+Tofu",
+            "user_id": 8,
+            "meal_type": "dinner",
+            "chroma_id": "77001ba1-8449-4f50-b902-34488847097b",
+            "local_image_path": "images/dinner_Thai-Style_Spicy_Grilled_Tofu_with_Coconut_Rice_0.jpg"
+          }
+        ]
+      },
+      "total_calories": 2200.0,
+      "total_macros": {},
+      "generation_metadata": {}
+    }
+  }
+}

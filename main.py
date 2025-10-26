@@ -1035,15 +1035,7 @@ async def create_grocery_list_from_recipe(
     
     try:
         # Import Kroger API functions from grocery agent
-        from agents.grocery_agent.agent import get_kroger_token, search_kroger_product
-        
-        # Get Kroger API token
-        token = get_kroger_token()
-        if not token:
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Kroger API unavailable"
-            )
+        from agents.grocery_agent.agent import search_and_price_ingredient
         
         # Extract ingredients from recipe
         ingredients = recipe.ingredients
@@ -1057,7 +1049,7 @@ async def create_grocery_list_from_recipe(
         total_cost = 0.0
         kroger_items_found = 0
         
-        # Search Kroger for each ingredient
+        # Search Kroger for each ingredient using the same function as /grocery endpoint
         for ingredient in ingredients:
             ingredient_name = ingredient.name
             quantity = ingredient.quantity
@@ -1066,53 +1058,37 @@ async def create_grocery_list_from_recipe(
             if not ingredient_name:
                 continue
             
-            # Search Kroger API for this ingredient
-            kroger_result = search_kroger_product(ingredient_name)
+            # Use the same search_and_price_ingredient function that works in /grocery
+            item_details = search_and_price_ingredient(ingredient_name, quantity, unit)
             
-            if kroger_result and kroger_result.get("price"):
+            # ONLY include items found on Kroger - no fallback
+            if item_details.get("found") and item_details.get("source") == "kroger_api":
                 # Found on Kroger
                 kroger_items_found += 1
-                item_cost = float(kroger_result["price"]) * quantity
-                total_cost += item_cost
+                estimated_price = item_details["price"]
                 
                 grocery_item = {
-                    "name": kroger_result["name"],
-                    "description": kroger_result.get("description", ""),
-                    "quantity": quantity,
-                    "unit": unit,
-                    "price_per_unit": float(kroger_result["price"]),
-                    "total_price": item_cost,
-                    "image_url": kroger_result.get("image_url", ""),
-                    "kroger_product_id": kroger_result.get("product_id", ""),
-                    "category": kroger_result.get("category", "groceries"),
-                    "brand": kroger_result.get("brand", ""),
-                    "size": kroger_result.get("size", ""),
-                    "available": True,
-                    "source": "kroger"
-                }
-            else:
-                # Not found on Kroger, use estimated price
-                estimated_price = 2.50  # Default estimated price
-                item_cost = estimated_price * quantity
-                total_cost += item_cost
-                
-                grocery_item = {
-                    "name": ingredient_name,
-                    "description": f"Estimated price for {ingredient_name}",
+                    "name": item_details["name"],
+                    "description": f"Found on Kroger: {item_details['name']}",
                     "quantity": quantity,
                     "unit": unit,
                     "price_per_unit": estimated_price,
-                    "total_price": item_cost,
+                    "total_price": estimated_price,
                     "image_url": "",
-                    "kroger_product_id": "",
-                    "category": "groceries",
-                    "brand": "Generic",
+                    "kroger_product_id": item_details.get("product_id", ""),
+                    "category": item_details.get("category", "groceries"),
+                    "brand": item_details.get("brand", ""),
                     "size": "",
-                    "available": False,
-                    "source": "estimated"
+                    "available": True,
+                    "source": "kroger"
                 }
-            
-            grocery_items.append(grocery_item)
+                
+                grocery_items.append(grocery_item)
+                if estimated_price is not None:
+                    total_cost += estimated_price
+            else:
+                # Skip items not found on Kroger
+                logger.info(f"⏭️  Skipping '{ingredient_name}' - not found on Kroger")
         
         # Create grocery list in database
         grocery_list = db_create_grocery_list(db, current_user.id, {
@@ -1133,6 +1109,7 @@ async def create_grocery_list_from_recipe(
         logger.info(f"Created grocery list with {len(grocery_items)} items, {kroger_items_found} from Kroger")
         
         return {
+            "agent": "GroceryAgent",
             "list_id": grocery_list.id,
             "store": "Kroger",
             "items": grocery_items,
@@ -1141,7 +1118,8 @@ async def create_grocery_list_from_recipe(
             "total_items": len(grocery_items),
             "order_url": order_url,
             "message": f"Found {kroger_items_found}/{len(grocery_items)} items on Kroger",
-            "recipe_title": recipe.title
+            "recipe_title": recipe.title,
+            "llm_provider": "kroger_api" if kroger_items_found > 0 else "estimated"
         }
         
     except Exception as e:

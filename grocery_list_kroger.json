@@ -1,0 +1,109 @@
+{
+  "recipe_title": "Fiery Dal Makhani with Quinoa Pilaf",
+  "store": "Kroger",
+  "total_items": 11,
+  "kroger_items_found": 11,
+  "total_estimated_cost": 61.19,
+  "llm_provider": "kroger_api",
+  "items": [
+    {
+      "name": "Goya Organic Black Beans",
+      "quantity": "0.5 cup (soaked overnight)",
+      "price": 1.69,
+      "category": "Other",
+      "product_id": "0004133102342",
+      "brand": "GOYA",
+      "source": "kroger"
+    },
+    {
+      "name": "Kroger\u00ae Tri-Color Quinoa",
+      "quantity": "0.4 cup (uncooked)",
+      "price": 4.29,
+      "category": "Grains",
+      "product_id": "0001111086094",
+      "brand": "Kroger",
+      "source": "kroger"
+    },
+    {
+      "name": "Sach\u2122 The Original Paneer",
+      "quantity": "50.0 g (cubed)",
+      "price": 8.99,
+      "category": "Dairy",
+      "product_id": "0085001108803",
+      "brand": "Sach",
+      "source": "kroger"
+    },
+    {
+      "name": "Kroger\u00ae Heavy Whipping Cream Pint",
+      "quantity": "2.0 tbsp",
+      "price": 3.69,
+      "category": "Other",
+      "product_id": "0001111050315",
+      "brand": "Kroger",
+      "source": "kroger"
+    },
+    {
+      "name": "Simple Truth Organic\u2122 Ghee Clarified Butter",
+      "quantity": "1.0 tbsp",
+      "price": 12.99,
+      "category": "Cooking Oils",
+      "product_id": "0001111078866",
+      "brand": "Simple Truth Organic",
+      "source": "kroger"
+    },
+    {
+      "name": "Kroger\u00ae Yellow Onion 3 lb Bag",
+      "quantity": "0.5 medium (finely chopped)",
+      "price": 3.29,
+      "category": "Other",
+      "product_id": "0001111091682",
+      "brand": null,
+      "source": "kroger"
+    },
+    {
+      "name": "Fresh Large Hothouse Grown Premium Red Tomato",
+      "quantity": "1.0 medium (pureed)",
+      "price": 2.29,
+      "category": "Other",
+      "product_id": "0000000004799",
+      "brand": "Fresh Tomatoes",
+      "source": "kroger"
+    },
+    {
+      "name": "Kroger\u00ae Tikka Masala Sauce",
+      "quantity": "1.0 tbsp",
+      "price": 4.99,
+      "category": "Condiments",
+      "product_id": "0001111088133",
+      "brand": "Kroger",
+      "source": "kroger"
+    },
+    {
+      "name": "Mrs. Renfro's\u00ae Ghost Pepper Salsa",
+      "quantity": "0.25 tsp",
+      "price": 4.49,
+      "category": "Other",
+      "product_id": "0004123500083",
+      "brand": "Mrs. Renfro's",
+      "source": "kroger"
+    },
+    {
+      "name": "Private Selection\u2122 Garam Masala Blend",
+      "quantity": "1.0 tsp",
+      "price": 5.99,
+      "category": "Spices",
+      "product_id": "0001111002370",
+      "brand": "Private Selection",
+      "source": "kroger"
+    },
+    {
+      "name": "Spice Islands Ground Cumin Seed, Kosher",
+      "quantity": "0.5 tsp",
+      "price": 8.49,
+      "category": "Spices",
+      "product_id": "0001732400233",
+      "brand": "Spice Islands",
+      "source": "kroger"
+    }
+  ]
+}
